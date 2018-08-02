@@ -16,27 +16,90 @@ namespace FileIO.Models
             from_letter -= 'A';
             letter -= 'A';
 
-            if ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) && 
+            if ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) &&
                 (letter < 8 && letter > -1) && (number < 8 && number > -1))
             {
-                if (light)
+                if (from_letter == letter && from_number != number)
                 {
-                    if (from_letter == letter && from_number != number)
+                    if (from_number < number)
                     {
-                        // Loop through the spaces between the the positions
+                        for (int i = 0; i < from_number - number; i++)
+                        {
+                            if (p[from_number + i][from_letter] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = from_number;
+                                }
+                            }
+                        }
                     }
-                    else if (from_letter != letter && from_number == number)
+                    else
                     {
-                        // Loop through the spaces between the the positions
-                    }
-                    else if (from_letter != letter && from_number != number)
-                    {
-                        // Loop through the spaces between the the positions
+                        for (int i = 0; i < number - from_number; i++)
+                        {
+                            if (p[from_number + i][from_letter] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = number;
+                                }
+                            }
+                        }
                     }
                 }
-                else
+                else if (from_letter != letter && from_number == number)
                 {
-
+                    if (from_letter < letter)
+                    {
+                        for (int i = 0; i < letter - from_letter; i++)
+                        {
+                            if (p[from_number][from_letter + i] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = letter;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < from_letter - letter; i++)
+                        {
+                            if (p[from_number][from_letter + i] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = from_letter;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (from_letter != letter && from_number != number)
+                {
+                    // Diagnaly looping
                 }
             }
 

@@ -23,16 +23,19 @@ namespace FileIO.Models
                     {
                         for (int i = 0; i < from_number - number; i++)
                         {
-                            if (p[from_number + i][from_letter] == null)
+                            if (from_number + i < 8 && from_number > -1)
                             {
-                                possible = true;
-                            }
-                            else
-                            {
-                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                if (p[from_number + i][from_letter] == null)
                                 {
                                     possible = true;
-                                    i = from_number - number;
+                                }
+                                else
+                                {
+                                    if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                    {
+                                        possible = true;
+                                        i = from_number;
+                                    }
                                 }
                             }
                         }
@@ -50,7 +53,7 @@ namespace FileIO.Models
                                 if (p[from_number][from_letter].Color != p[number][letter].Color)
                                 {
                                     possible = true;
-                                    i = number - from_number;
+                                    i = number;
                                 }
                             }
                         }
@@ -59,24 +62,6 @@ namespace FileIO.Models
                 else if (from_letter != letter && from_number == number)
                 {
                     if (from_letter < letter)
-                    {
-                        for (int i = 0; i < from_letter - letter; i++)
-                        {
-                            if (p[from_number][from_letter + i] == null)
-                            {
-                                possible = true;
-                            }
-                            else
-                            {
-                                if (p[from_number][from_letter].Color != p[number][letter].Color)
-                                {
-                                    possible = true;
-                                    i = from_letter - letter;
-                                }
-                            }
-                        }
-                    }
-                    else
                     {
                         for (int i = 0; i < letter - from_letter; i++)
                         {
@@ -89,7 +74,25 @@ namespace FileIO.Models
                                 if (p[from_number][from_letter].Color != p[number][letter].Color)
                                 {
                                     possible = true;
-                                    i = letter - from_letter;
+                                    i = letter;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < from_letter - letter; i++)
+                        {
+                            if (p[from_number][from_letter + i] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = from_letter;
                                 }
                             }
                         }
