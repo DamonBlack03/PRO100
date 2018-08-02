@@ -21,17 +21,26 @@ namespace FileIO.Models
                 {
                     if (from_number < number)
                     {
+                        //if from number is smaller and you subtract youll get a negative number, 0 is never less
+                        //than a negative
+                        //why not just do i = from_number; i < number; i++
                         for (int i = 0; i < from_number - number; i++)
                         {
+                            //this should give an out of bounds exception so just us [i]
                             if (p[from_number + i][from_letter] == null)
                             {
                                 possible = true;
                             }
                             else
                             {
+                                //reaching here means it hit a piece so there should be a check to see
+                                //if this is at the end of the for loop, if this is somewhere in the middle of the
+                                //loop then the spot the originally chose isn't possible
                                 if (p[from_number][from_letter].Color != p[number][letter].Color)
                                 {
                                     possible = true;
+                                    //i would just say i = number tobreak it out of the loop without it having to do
+                                    //extra math
                                     i = from_number - number;
                                 }
                             }
@@ -39,6 +48,7 @@ namespace FileIO.Models
                     }
                     else
                     {
+                        //incorporate the comments from above
                         for (int i = 0; i < number - from_number; i++)
                         {
                             if (p[from_number + i][from_letter] == null)
