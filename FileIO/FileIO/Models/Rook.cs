@@ -17,32 +17,87 @@ namespace FileIO.Models
             if ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) &&
                 (letter < 8 && letter > -1) && (number < 8 && number > -1))
             {
-                if (light)
+                if (from_letter == letter && from_number != number)
                 {
-                    if (from_letter == letter && from_number != number)
+                    if (from_number < number)
                     {
-                     // Loop through and check each position between the from position and the desired position  
-                     
-                     // when you come across a piece check its color, if its the same then you can only move up to the
-                     // space before that, otherwise you can move to that space, this way if the position they choose 
-                     // already has a piece in it then we can "take it" or return false to make taking pieces easier 
-                     // later on
+                        for (int i = 0; i < from_number - number; i++)
+                        {
+                            if (p[from_number + i][from_letter] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = from_number - number;
+                                }
+                            }
+                        }
                     }
-                    else if (from_letter != letter && from_number == number)
+                    else
                     {
-                        // Loop through and check each position between the from position and the desired position
-
-                        // Same comment as above 
+                        for (int i = 0; i < number - from_number; i++)
+                        {
+                            if (p[from_number + i][from_letter] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = number - from_number;
+                                }
+                            }
+                        }
                     }
                 }
-                else
+                else if (from_letter != letter && from_number == number)
                 {
-
+                    if (from_letter < letter)
+                    {
+                        for (int i = 0; i < from_letter - letter; i++)
+                        {
+                            if (p[from_number][from_letter + i] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = from_letter - letter;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < letter - from_letter; i++)
+                        {
+                            if (p[from_number][from_letter + i] == null)
+                            {
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                {
+                                    possible = true;
+                                    i = letter - from_letter;
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            
 
-                return possible;
+            return possible;
         }
 
         public override string ToString()
