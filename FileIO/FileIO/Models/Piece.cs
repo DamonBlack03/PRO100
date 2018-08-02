@@ -16,7 +16,8 @@ namespace FileIO.Models
             p[from_number][from_letter] = null;
         }
 
-        public abstract bool CanMove(ref Piece[][] p, char from_letter, int from_number, char letter, int number);
+        //light pieces will be at bottom
+        public abstract bool CanMove(ref Piece[][] p, char from_letter, int from_number, char letter, int number, bool light);
 
         public abstract override string ToString();
     }
