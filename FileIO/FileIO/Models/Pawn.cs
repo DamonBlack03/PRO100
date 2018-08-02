@@ -27,7 +27,7 @@ namespace FileIO.Models
                         }
                         else if (number == (from_number - 1) || number == (from_number + 1))
                         {
-                            if (p[number][letter] != null)
+                            if (p[number][letter] != null && p[number][letter].Color != p[from_number][from_letter].Color)
                             {
                                 possible = true;
                             }
@@ -54,7 +54,7 @@ namespace FileIO.Models
                         }
                         else if (number == (from_number - 1) || number == (from_number + 1))
                         {
-                            if (p[number][letter] != null)
+                            if (p[number][letter] != null && p[number][letter].Color != p[from_number][from_letter].Color)
                             {
                                 possible = true;
                             }
