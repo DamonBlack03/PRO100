@@ -21,11 +21,18 @@ namespace FileIO.Models
                 {
                     if (from_letter == letter && from_number != number)
                     {
-                     // Loop through and check each position between the from position and the desired position   
+                     // Loop through and check each position between the from position and the desired position  
+                     
+                     // when you come across a piece check its color, if its the same then you can only move up to the
+                     // space before that, otherwise you can move to that space, this way if the position they choose 
+                     // already has a piece in it then we can "take it" or return false to make taking pieces easier 
+                     // later on
                     }
                     else if (from_letter != letter && from_number == number)
                     {
                         // Loop through and check each position between the from position and the desired position
+
+                        // Same comment as above 
                     }
                 }
                 else
