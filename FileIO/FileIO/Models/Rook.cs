@@ -25,7 +25,7 @@ namespace FileIO.Models
                     }
                     else if (from_letter != letter && from_number == number)
                     {
-                        
+                        // Loop through and check each position between the from position and the desired position
                     }
                 }
                 else
