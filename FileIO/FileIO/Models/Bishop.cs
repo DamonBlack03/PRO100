@@ -8,7 +8,7 @@ namespace FileIO.Models
 {
     class Bishop : Piece
     {
-        public override bool CanMove(ref Piece[][] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
         {
             bool possible = false;
             from_letter -= 'A';

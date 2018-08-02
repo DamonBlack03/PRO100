@@ -13,7 +13,7 @@ namespace FileIO.Models
             
         }
 
-        public override bool CanMove(ref Piece[][] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
         {
             bool possible = false;
             from_letter -= 'A';
@@ -26,11 +26,11 @@ namespace FileIO.Models
                 {
                     if(number == from_number || number == (from_number - 1) || number == (from_number + 1))
                     {
-                        if (p[number][letter] == null)
+                        if (p[number,letter] == null)
                         {
                             possible = true;
                         }
-                        else if (p[number][letter].Color != p[from_number][from_letter].Color)
+                        else if (p[number,letter].Color != p[from_number,from_letter].Color)
                         {
                             possible = true;
                         }
@@ -40,11 +40,11 @@ namespace FileIO.Models
                 {
                     if (number == (from_number - 1) || number == (from_number + 1))
                     {
-                        if (p[number][letter] == null)
+                        if (p[number,letter] == null)
                         {
                             possible = true;
                         }
-                        else if (p[number][letter].Color != p[from_number][from_letter].Color)
+                        else if (p[number,letter].Color != p[from_number,from_letter].Color)
                         {
                             possible = true;
                         }
