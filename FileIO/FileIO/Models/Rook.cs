@@ -8,7 +8,7 @@ namespace FileIO.Models
 {
     class Rook : Piece
     {
-        public override bool CanMove(ref Piece[][] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
         {
             bool possible = false;
             from_letter -= 'A';
@@ -27,7 +27,7 @@ namespace FileIO.Models
                         for (int i = 0; i < from_number - number; i++)
                         {
                             //this should give an out of bounds exception so just us [i]
-                            if (p[from_number + i][from_letter] == null)
+                            if (p[from_number + i,from_letter] == null)
                             {
                                 possible = true;
                             }
@@ -36,7 +36,7 @@ namespace FileIO.Models
                                 //reaching here means it hit a piece so there should be a check to see
                                 //if this is at the end of the for loop, if this is somewhere in the middle of the
                                 //loop then the spot the originally chose isn't possible
-                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                if (p[from_number,from_letter].Color != p[number,letter].Color)
                                 {
                                     possible = true;
                                     //i would just say i = number tobreak it out of the loop without it having to do
@@ -51,13 +51,13 @@ namespace FileIO.Models
                         //incorporate the comments from above
                         for (int i = 0; i < number - from_number; i++)
                         {
-                            if (p[from_number + i][from_letter] == null)
+                            if (p[from_number + i,from_letter] == null)
                             {
                                 possible = true;
                             }
                             else
                             {
-                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                if (p[from_number,from_letter].Color != p[number,letter].Color)
                                 {
                                     possible = true;
                                     i = number - from_number;
@@ -72,13 +72,13 @@ namespace FileIO.Models
                     {
                         for (int i = 0; i < from_letter - letter; i++)
                         {
-                            if (p[from_number][from_letter + i] == null)
+                            if (p[from_number,from_letter + i] == null)
                             {
                                 possible = true;
                             }
                             else
                             {
-                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                if (p[from_number,from_letter].Color != p[number,letter].Color)
                                 {
                                     possible = true;
                                     i = from_letter - letter;
@@ -90,13 +90,13 @@ namespace FileIO.Models
                     {
                         for (int i = 0; i < letter - from_letter; i++)
                         {
-                            if (p[from_number][from_letter + i] == null)
+                            if (p[from_number,from_letter + i] == null)
                             {
                                 possible = true;
                             }
                             else
                             {
-                                if (p[from_number][from_letter].Color != p[number][letter].Color)
+                                if (p[from_number,from_letter].Color != p[number,letter].Color)
                                 {
                                     possible = true;
                                     i = letter - from_letter;

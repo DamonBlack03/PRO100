@@ -8,7 +8,7 @@ namespace FileIO.Models
 {
     class Pawn : Piece
     {
-        public override bool CanMove(ref Piece[][] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
         {
             bool possible = false;
             from_letter -= 'A';
@@ -21,13 +21,13 @@ namespace FileIO.Models
                 {
                     if (letter == (from_letter - 1))
                     {
-                        if (from_number == number && p[number][letter] == null)
+                        if (from_number == number && p[number,letter] == null)
                         {
                             possible = true;
                         }
                         else if (number == (from_number - 1) || number == (from_number + 1))
                         {
-                            if (p[number][letter] != null && p[number][letter].Color != p[from_number][from_letter].Color)
+                            if (p[number,letter] != null && p[number,letter].Color != p[from_number,from_letter].Color)
                             {
                                 possible = true;
                             }
@@ -37,7 +37,7 @@ namespace FileIO.Models
                     {
                         if (letter == 4 && (from_number == number))
                         {
-                            if (p[number][letter] == null && p[number][letter - 1] == null)
+                            if (p[number,letter] == null && p[number,letter - 1] == null)
                             {
                                 possible = true;
                             }
@@ -48,13 +48,13 @@ namespace FileIO.Models
                 {
                     if (letter == (from_letter + 1))
                     {
-                        if (from_number == number && p[number][letter] == null)
+                        if (from_number == number && p[number,letter] == null)
                         {
                             possible = true;
                         }
                         else if (number == (from_number - 1) || number == (from_number + 1))
                         {
-                            if (p[number][letter] != null && p[number][letter].Color != p[from_number][from_letter].Color)
+                            if (p[number,letter] != null && p[number,letter].Color != p[from_number,from_letter].Color)
                             {
                                 possible = true;
                             }
@@ -64,7 +64,7 @@ namespace FileIO.Models
                     {
                         if (letter == 3 && (from_number == number))
                         {
-                            if (p[number][letter] == null && p[number][letter - 1] == null)
+                            if (p[number,letter] == null && p[number,letter - 1] == null)
                             {
                                 possible = true;
                             }
