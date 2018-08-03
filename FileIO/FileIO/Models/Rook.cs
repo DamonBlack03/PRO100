@@ -8,10 +8,16 @@ namespace FileIO.Models
 {
     class Rook : Piece
     {
-        public Rook(int color)
+        public Rook(bool light)
         {
-            // 0 = white 1 = black
-            this.Color = color;
+            if (light)
+            {
+                this.Color = 0;
+            }
+            else
+            {
+                this.Color = 1;
+            }
         }
 
         public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
@@ -37,21 +43,25 @@ namespace FileIO.Models
                                 }
                                 else
                                 {
-                                    if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                    if(p[number, letter] != null)
                                     {
-                                        possible = true;
-                                        i = from_number;
-                                    }
-                                    else
-                                    {
-                                        if (i != number - from_number)
+                                        if (p[from_number, from_letter].Color != p[number, letter].Color)
                                         {
-                                            if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                            possible = true;
+                                            i = from_number;
+                                        }
+                                        else
+                                        {
+                                            if (i != number - from_number)
                                             {
-                                                possible = true;
-                                                i = number;
+                                                if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                                {
+                                                    possible = true;
+                                                    i = number;
+                                                }
                                             }
                                         }
+
                                     }
                                 }
                             }

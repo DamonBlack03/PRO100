@@ -8,6 +8,18 @@ namespace FileIO.Models
 {
     class Pawn : Piece
     {
+        public Pawn(bool light)
+        {
+            if (light)
+            {
+                this.Color = 0;
+            }
+            else
+            {
+                this.Color = 1;
+            }
+        }
+
         public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
         {
             bool possible = false;

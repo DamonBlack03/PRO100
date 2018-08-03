@@ -8,10 +8,16 @@ namespace FileIO.Models
 {
     class Knight : Piece
     {
-        public Knight(int color)
+        public Knight(bool light)
         {
-            // 0 = white 1 = black
-            this.Color = color;
+            if (light)
+            {
+                this.Color = 0;
+            }
+            else
+            {
+                this.Color = 1;
+            }
         }
         public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
         {
