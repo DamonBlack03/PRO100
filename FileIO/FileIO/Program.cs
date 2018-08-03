@@ -44,48 +44,57 @@ namespace FileIO
             Piece[,] p = new Piece[8, 8];
             InitializeBoard(ref p);
 
-            string[] temp = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\MoveTests1.txt");
-            string[] tests = new string[(temp.Length/2) + 1];
-            for (int i = 0; i < temp.Length; i++)
-            {
-                tests[i / 2] += temp[i];
-            }
-
+            string[] tests = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\MoveTests1.txt");
+            //string[] tests = new string[(temp.Length/2) + 1];
+            //for (int i = 0; i < temp.Length; i++)
+            //{
+            //    tests[i / 2] += temp[i];
+            //}
+            Console.WriteLine(tests.Length);
+            int count = 0;
             for (int i = 0; i < tests.Length; i++)
             {
-                char temp_from_letter = tests[i].ToUpper()[0];
-                int temp_from_number = (int)tests[i][1] - 48;
+                if(tests[i] != null && tests[i] != "")
+                {
+                    count++;
+                    char temp_from_letter = tests[i].ToUpper()[0];
+                    int temp_from_number = (int)tests[i][1];
+                    temp_from_number -= '0';
                
-                char temp_letter = tests[i].ToUpper()[3];
-                int temp_number = (int)tests[i][4] - 48;
+                    char temp_letter = tests[i].ToUpper()[2];
+                    int temp_number = (int)tests[i][3];
+                    temp_number -= '0';
 
-                //Console.WriteLine(temp_from_letter + " " + temp_from_number);
-                //Console.WriteLine(temp_letter + " " + temp_number);
-                if ((temp_from_letter - 65) > 7 || (temp_from_letter - 65) < 0 ||
-                    temp_from_number > 7 || temp_from_number < 0)
-                {
-                    Console.WriteLine("Not a position on the board");
-                }
-                else
-                {
-                    if (p[temp_from_number, (temp_from_letter - 65)] != null)
+                    //Console.WriteLine(temp_from_letter);
+                    Console.WriteLine(count);// + " " + temp_from_number);
+
+                    if ((temp_from_letter - 65) > 7 || (temp_from_letter - 65) < 0 ||
+                        temp_from_number > 7 || temp_from_number < 0)
                     {
-                        if (p[temp_from_number, (temp_from_letter - 65)].CanMove(ref p, temp_from_letter, temp_from_number,
-                            temp_letter, temp_number, (p[temp_from_number, (temp_from_letter - 65)].Color) == 0) ? true : false)
+                        Console.WriteLine("Not a position on the board");
+                    }
+                    else
+                    {
+                        if (p[temp_from_number, (temp_from_letter - 65)] != null)
                         {
-                            Console.WriteLine($"{p[temp_from_number, (temp_from_letter - 65)].ToString()} " +
-                                $"moved from {temp_from_letter}{temp_from_number} to {temp_letter}{temp_number}.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Move was not valid.");
-                        }
+                            if (p[temp_from_number, (temp_from_letter - 65)].CanMove(ref p, temp_from_letter, temp_from_number,
+                                temp_letter, temp_number, (p[temp_from_number, (temp_from_letter - 65)].Color) == 0) ? true : false)
+                            {
+                                Console.WriteLine($"{p[temp_from_number, (temp_from_letter - 65)].ToString()} " +
+                                    $"moved from {temp_from_letter}{temp_from_number} to {temp_letter}{temp_number}.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Move was not valid.");
+                            }
 
+                        }
                     }
                 }
+                //Console.WriteLine(temp_letter + " " + temp_number);
 
             }
-
+            //Console.WriteLine(count);
         }
     }
 }
