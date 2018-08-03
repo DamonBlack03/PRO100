@@ -171,6 +171,118 @@ namespace FileIO.Models
                         }
                     }
                 }
+
+                int x = number - from_number;
+                int y = letter - from_letter;
+                if (Math.Abs(x) == Math.Abs(y))
+                {
+                    if (x > 0)
+                    {
+                        if (y > 0)
+                        {
+                            for (int i = 1; i <= Math.Abs(x); i++)
+                            {
+                                if (p[from_number + i, from_letter + i] == null)
+                                {
+                                    if (from_letter + i == letter && from_number + i == number)
+                                    {
+                                        possible = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (from_letter + i == letter && from_number + i == number &&
+                                        p[number, letter].Color != p[from_number, from_letter].Color)
+                                    {
+                                        possible = true;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= Math.Abs(x); i++)
+                            {
+                                if (p[from_number + i, from_letter - i] == null)
+                                {
+                                    if (from_letter - i == letter && from_number + i == number)
+                                    {
+                                        possible = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (from_letter - i == letter && from_number + i == number &&
+                                        p[number, letter].Color != p[from_number, from_letter].Color)
+                                    {
+                                        possible = true;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (y > 0)
+                        {
+                            for (int i = 1; i <= Math.Abs(x); i++)
+                            {
+                                if (p[from_number - i, from_letter + i] == null)
+                                {
+                                    if (from_letter + i == letter && from_number - i == number)
+                                    {
+                                        possible = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (from_letter + i == letter && from_number - i == number &&
+                                        p[number, letter].Color != p[from_number, from_letter].Color)
+                                    {
+                                        possible = true;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= Math.Abs(x); i++)
+                            {
+                                if (p[from_number - i, from_letter - i] == null)
+                                {
+                                    if (from_letter - i == letter && from_number - i == number)
+                                    {
+                                        possible = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (from_letter - i == letter && from_number - i == number &&
+                                        p[number, letter].Color != p[from_number, from_letter].Color)
+                                    {
+                                        possible = true;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             return possible;
         }
