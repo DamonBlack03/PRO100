@@ -130,7 +130,46 @@ namespace FileIO.Models
                 }
                 else if (from_letter != letter && from_number != number)
                 {
-                    // diagnal check
+                    if (from_letter > letter && from_number > number)
+                    {
+                        for (int i = from_number - number; i > 0; i--)
+                        {
+                            for (int j = from_letter - letter; j > 0; j--)
+                            {
+
+                            }
+                        }
+                    }
+                    else if (from_letter > letter && from_number < number)
+                    {
+                        for (int i = 0; i < number - from_letter; i++)
+                        {
+                            for (int j = from_letter - letter; j > 0; j--)
+                            {
+
+                            }
+                        }
+                    }
+                    else if (from_letter < letter && from_number > number)
+                    {
+                        for (int i = from_number - number; i > 0; i--)
+                        {
+                            for (int j = 0; j < letter - from_letter; j++)
+                            {
+
+                            }
+                        }
+                    }
+                    else if (from_letter < letter && from_number < number)
+                    {
+                        for (int i = 0; i < number - from_number; i++)
+                        {
+                            for (int j = 0;  j < letter - from_letter;  j++)
+                            {
+                                
+                            }
+                        }
+                    }
                 }
             }
             return possible;
