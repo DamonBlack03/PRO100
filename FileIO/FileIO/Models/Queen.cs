@@ -8,7 +8,11 @@ namespace FileIO.Models
 {
     class Queen : Piece
     {
-        // Will just be the bishop and rook code combined
+        public Queen(int color)
+        {
+            // 0 = white 1 = black
+            this.Color = color;
+        }
 
         public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
         {
