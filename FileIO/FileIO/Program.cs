@@ -12,29 +12,36 @@ namespace FileIO
     {
         public static void InitializeBoard(ref Piece[,] p)
         {
-            for (int i = 0; i < p.GetLength(0); i++)
+            string[] pieces = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\PiecePlacement.txt");
+            for (int i = 0; i < pieces.Length; i++)
             {
-                p[1, i] = new Pawn(false);
-                p[6, i] = new Pawn(true);
+                int x = (int)(pieces[i][3] - '0');
+                int y = (int)(pieces[i][2] - 'A');
+                bool light = (pieces[i][1] == 'l') ? true : false;
+                char temp = pieces[i][0];
+
+                switch (temp)
+                {
+                    case 'Q':
+                        p[x, y] = new Queen(light);
+                        break;
+                    case 'K':
+                        p[x, y] = new King(light);
+                        break;
+                    case 'B':
+                        p[x, y] = new Bishop(light);
+                        break;
+                    case 'R':
+                        p[x, y] = new Rook(light);
+                        break;
+                    case 'N':
+                        p[x, y] = new Knight(light);
+                        break;
+                    default:
+                        break;
+                }
+
             }
-            p[0, 0] = new Rook(false);
-            p[0, 1] = new Knight(false);
-            p[0, 2] = new Bishop(false);
-            p[0, 3] = new Queen(false);
-            p[0, 4] = new King(false);
-            p[0, 5] = new Bishop(false);
-            p[0, 6] = new Knight(false);
-            p[0, 7] = new Rook(false);
-
-            p[7, 0] = new Rook(true);
-            p[7, 1] = new Knight(true);
-            p[7, 2] = new Bishop(true);
-            p[7, 3] = new Queen(true);
-            p[7, 4] = new King(true);
-            p[7, 5] = new Bishop(true);
-            p[7, 6] = new Knight(true);
-            p[7, 7] = new Rook(true);
-
         }
 
         static void Main(string[] args)
@@ -43,58 +50,62 @@ namespace FileIO
 
             Piece[,] p = new Piece[8, 8];
             InitializeBoard(ref p);
+            //for (int i = 0; i < p.GetLength(0); i++)
+            //{
+            //    for (int y = 0; y < p.GetLength(1); y++)
+            //    {
+            //        if(p[i, y] != null)
+            //        {
+            //            Console.WriteLine(p[i,y].ToString());
+
+            //        }
+            //    }
+            //}
 
             string[] tests = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\MoveTests1.txt");
-            //string[] tests = new string[(temp.Length/2) + 1];
-            //for (int i = 0; i < temp.Length; i++)
-            //{
-            //    tests[i / 2] += temp[i];
-            //}
-            Console.WriteLine(tests.Length);
+
+            //Console.WriteLine(tests.Length);
             int count = 0;
             for (int i = 0; i < tests.Length; i++)
             {
-                if(tests[i] != null && tests[i] != "")
+                count++;
+                if (tests[i] != null && tests[i] != "")
                 {
-                    count++;
-                    char temp_from_letter = tests[i].ToUpper()[0];
-                    int temp_from_number = (int)tests[i][1];
-                    temp_from_number -= '0';
-               
-                    char temp_letter = tests[i].ToUpper()[2];
-                    int temp_number = (int)tests[i][3];
-                    temp_number -= '0';
-
-                    //Console.WriteLine(temp_from_letter);
-                    Console.WriteLine(count);// + " " + temp_from_number);
-
-                    if ((temp_from_letter - 65) > 7 || (temp_from_letter - 65) < 0 ||
-                        temp_from_number > 7 || temp_from_number < 0)
+                    if (tests[i][0] >= 'a' && tests[i][0] <= 'h' &&
+                        tests[i][3] >= 'a' && tests[i][3] <= 'h' &&
+                        tests[i][1] >= '0' && tests[i][1] <= '7' &&
+                        tests[i][4] >= '0' && tests[i][4] <= '7')
                     {
-                        Console.WriteLine("Not a position on the board");
+                        char temp_from_letter = tests[i].ToUpper()[0];
+                        int temp_from_number = (int)(tests[i][1] - '0');
+                       // temp_from_number -= '0';
+
+                        char temp_letter = tests[i].ToUpper()[3];
+                        int temp_number = (int)(tests[i][4] - '0');
+
+                        //Console.WriteLine(temp_from_number);
+                        //Console.WriteLine(temp_from_letter);
+                        if (p[temp_from_number, temp_from_letter - 'A'] != null)
+                        {
+                            Console.WriteLine($"{p[temp_from_number, temp_from_letter - 'A'].ToString()} has moved from position " +
+                                $"{temp_from_letter}{(int)(tests[i][1] - '0')} to position {temp_letter}{(int)(tests[i][4] - '0')}");
+                            temp_from_letter -= 'A';
+                            temp_letter -= 'A';
+                            
+                            //Console.WriteLine((temp_from_letter.ToString()));
+                            p[(int)(tests[i][1] - '0'), (int)temp_from_letter].Move(ref p, temp_from_letter, (int)(tests[i][1] - '0'), 
+                                temp_letter,
+                                (int)(tests[i][4] - '0'));
+                        }
                     }
                     else
                     {
-                        if (p[temp_from_number, (temp_from_letter - 65)] != null)
-                        {
-                            if (p[temp_from_number, (temp_from_letter - 65)].CanMove(ref p, temp_from_letter, temp_from_number,
-                                temp_letter, temp_number, (p[temp_from_number, (temp_from_letter - 65)].Color) == 0) ? true : false)
-                            {
-                                Console.WriteLine($"{p[temp_from_number, (temp_from_letter - 65)].ToString()} " +
-                                    $"moved from {temp_from_letter}{temp_from_number} to {temp_letter}{temp_number}.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Move was not valid.");
-                            }
-
-                        }
+                        Console.WriteLine("Position not on board, no move was made.");
                     }
-                }
-                //Console.WriteLine(temp_letter + " " + temp_number);
 
+                }
+                //Console.WriteLine(count++);
             }
-            //Console.WriteLine(count);
         }
     }
 }
