@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BoardDisplay"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="840" Width="830">
+    <Grid Name="Board" ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="90"/>
+        </Grid.RowDefinitions>
+        <Label Name="Zero" Grid.Column="1" Grid.Row="0" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="One" Grid.Column="2" Grid.Row="0" Content="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="Two" Grid.Column="3" Grid.Row="0" Content="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="Three" Grid.Column="4" Grid.Row="0" Content="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="Four" Grid.Column="5" Grid.Row="0" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="Five" Grid.Column="6" Grid.Row="0" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="Six" Grid.Column="7" Grid.Row="0" Content="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="Seven" Grid.Column="8" Grid.Row="0" Content="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Name="Damon" Content="Damon"/>
+            <Label Name="Dean" Content="Dean"/>
+        </StackPanel>
         
+        <Label Name="A" Grid.Column="0" Grid.Row="1" Content="A" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="B" Grid.Column="0" Grid.Row="2" Content="B" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="C" Grid.Column="0" Grid.Row="3" Content="C" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="D" Grid.Column="0" Grid.Row="4" Content="D" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="E" Grid.Column="0" Grid.Row="5" Content="E" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="F" Grid.Column="0" Grid.Row="6" Content="F" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="G" Grid.Column="0" Grid.Row="7" Content="G" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        <Label Name="H" Grid.Column="0" Grid.Row="8" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+    
+    
     </Grid>
 </Window>
