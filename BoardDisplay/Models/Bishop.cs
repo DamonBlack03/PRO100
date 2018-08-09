@@ -147,7 +147,7 @@ namespace BoardDisplay.Models
 
         public override string ToString()
         {
-            return "Bishop";
+            return (Color == 0) ? "B" : "b";
         }
     }
 }

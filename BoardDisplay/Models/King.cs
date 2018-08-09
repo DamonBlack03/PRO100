@@ -64,7 +64,7 @@ namespace BoardDisplay.Models
 
         public override string ToString()
         {
-            return "King";
+            return (Color == 0) ? "K": "k";
         }
     }
 }

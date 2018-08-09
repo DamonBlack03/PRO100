@@ -90,7 +90,7 @@ namespace BoardDisplay.Models
 
         public override string ToString()
         {
-            return "Pawn";
+            return (Color == 0) ? "P": "p";
         }
     }
 }

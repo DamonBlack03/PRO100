@@ -299,7 +299,7 @@ namespace BoardDisplay.Models
 
         public override string ToString()
         {
-            return "Queen";
+            return (Color == 0) ? "Q" : "q";
         }
     }
 }

@@ -67,7 +67,7 @@ namespace BoardDisplay.Models
 
         public override string ToString()
         {
-            return "Knight";
+            return (Color == 0) ? "N" : "n";
         }
     }
 }

@@ -149,7 +149,7 @@ namespace BoardDisplay.Models
 
         public override string ToString()
         {
-            return "Rook";
+            return (Color == 0) ? "R" : "r";
         }
     }
 }
