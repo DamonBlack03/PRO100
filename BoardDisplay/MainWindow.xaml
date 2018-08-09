@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BoardDisplay"
         mc:Ignorable="d"
-        Title="MainWindow" Height="840" Width="830">
+        Title="MainWindow" Height="844" Width="822">
     <Grid Name="Board" ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="90"/>
@@ -51,7 +51,77 @@
         <Label Name="F" Grid.Column="0" Grid.Row="6" Content="F" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
         <Label Name="G" Grid.Column="0" Grid.Row="7" Content="G" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
         <Label Name="H" Grid.Column="0" Grid.Row="8" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
-    
-    
+
+        <Button Name="A0" Grid.Column="1" Grid.Row="1" Width="90" Height="90"/>
+        <Button Name="A1" Grid.Column="2" Grid.Row="1" Width="90" Height="90"/>
+        <Button Name="A2" Grid.Column="3" Grid.Row="1" Width="90" Height="90"/>
+        <Button Name="A3" Grid.Column="4" Grid.Row="1" Width="90" Height="90"/>
+        <Button Name="A4" Grid.Column="5" Grid.Row="1" Width="90" Height="90"/>
+        <Button Name="A5" Grid.Column="6" Grid.Row="1" Width="90" Height="90"/>
+        <Button Name="A6" Grid.Column="7" Grid.Row="1" Width="90" Height="90"/>
+        <Button Name="A7" Grid.Column="8" Grid.Row="1" Width="90" Height="90"/>
+
+        <Button Name="B0" Grid.Column="1" Grid.Row="2" Width="90" Height="90"/>
+        <Button Name="B1" Grid.Column="2" Grid.Row="2" Width="90" Height="90"/>
+        <Button Name="B2" Grid.Column="3" Grid.Row="2" Width="90" Height="90"/>
+        <Button Name="B3" Grid.Column="4" Grid.Row="2" Width="90" Height="90"/>
+        <Button Name="B4" Grid.Column="5" Grid.Row="2" Width="90" Height="90"/>
+        <Button Name="B5" Grid.Column="6" Grid.Row="2" Width="90" Height="90"/>
+        <Button Name="B6" Grid.Column="7" Grid.Row="2" Width="90" Height="90"/>
+        <Button Name="B7" Grid.Column="8" Grid.Row="2" Width="90" Height="90"/>
+
+        <Button Name="C0" Grid.Column="1" Grid.Row="3" Width="90" Height="90"/>
+        <Button Name="C1" Grid.Column="2" Grid.Row="3" Width="90" Height="90"/>
+        <Button Name="C2" Grid.Column="3" Grid.Row="3" Width="90" Height="90"/>
+        <Button Name="C3" Grid.Column="4" Grid.Row="3" Width="90" Height="90"/>
+        <Button Name="C4" Grid.Column="5" Grid.Row="3" Width="90" Height="90"/>
+        <Button Name="C5" Grid.Column="6" Grid.Row="3" Width="90" Height="90"/>
+        <Button Name="C6" Grid.Column="7" Grid.Row="3" Width="90" Height="90"/>
+        <Button Name="C7" Grid.Column="8" Grid.Row="3" Width="90" Height="90"/>
+
+        <Button Name="D0" Grid.Column="1" Grid.Row="4" Width="90" Height="90"/>
+        <Button Name="D1" Grid.Column="2" Grid.Row="4" Width="90" Height="90"/>
+        <Button Name="D2" Grid.Column="3" Grid.Row="4" Width="90" Height="90"/>
+        <Button Name="D3" Grid.Column="4" Grid.Row="4" Width="90" Height="90"/>
+        <Button Name="D4" Grid.Column="5" Grid.Row="4" Width="90" Height="90"/>
+        <Button Name="D5" Grid.Column="6" Grid.Row="4" Width="90" Height="90"/>
+        <Button Name="D6" Grid.Column="7" Grid.Row="4" Width="90" Height="90"/>
+        <Button Name="D7" Grid.Column="8" Grid.Row="4" Width="90" Height="90"/>
+
+        <Button Name="E0" Grid.Column="1" Grid.Row="5" Width="90" Height="90"/>
+        <Button Name="E1" Grid.Column="2" Grid.Row="5" Width="90" Height="90"/>
+        <Button Name="E2" Grid.Column="3" Grid.Row="5" Width="90" Height="90"/>
+        <Button Name="E3" Grid.Column="4" Grid.Row="5" Width="90" Height="90"/>
+        <Button Name="E4" Grid.Column="5" Grid.Row="5" Width="90" Height="90"/>
+        <Button Name="E5" Grid.Column="6" Grid.Row="5" Width="90" Height="90"/>
+        <Button Name="E6" Grid.Column="7" Grid.Row="5" Width="90" Height="90"/>
+        <Button Name="E7" Grid.Column="8" Grid.Row="5" Width="90" Height="90"/>
+
+        <Button Name="F0" Grid.Column="1" Grid.Row="6" Width="90" Height="90"/>
+        <Button Name="F1" Grid.Column="2" Grid.Row="6" Width="90" Height="90"/>
+        <Button Name="F2" Grid.Column="3" Grid.Row="6" Width="90" Height="90"/>
+        <Button Name="F3" Grid.Column="4" Grid.Row="6" Width="90" Height="90"/>
+        <Button Name="F4" Grid.Column="5" Grid.Row="6" Width="90" Height="90"/>
+        <Button Name="F5" Grid.Column="6" Grid.Row="6" Width="90" Height="90"/>
+        <Button Name="F6" Grid.Column="7" Grid.Row="6" Width="90" Height="90"/>
+        <Button Name="F7" Grid.Column="8" Grid.Row="6" Width="90" Height="90"/>
+
+        <Button Name="G0" Grid.Column="1" Grid.Row="7" Width="90" Height="90"/>
+        <Button Name="G1" Grid.Column="2" Grid.Row="7" Width="90" Height="90"/>
+        <Button Name="G2" Grid.Column="3" Grid.Row="7" Width="90" Height="90"/>
+        <Button Name="G3" Grid.Column="4" Grid.Row="7" Width="90" Height="90"/>
+        <Button Name="G4" Grid.Column="5" Grid.Row="7" Width="90" Height="90"/>
+        <Button Name="G5" Grid.Column="6" Grid.Row="7" Width="90" Height="90"/>
+        <Button Name="G6" Grid.Column="7" Grid.Row="7" Width="90" Height="90"/>
+        <Button Name="G7" Grid.Column="8" Grid.Row="7" Width="90" Height="90"/>
+
+        <Button Name="H0" Grid.Column="1" Grid.Row="8" Width="90" Height="90"/>
+        <Button Name="H1" Grid.Column="2" Grid.Row="8" Width="90" Height="90"/>
+        <Button Name="H2" Grid.Column="3" Grid.Row="8" Width="90" Height="90"/>
+        <Button Name="H3" Grid.Column="4" Grid.Row="8" Width="90" Height="90"/>
+        <Button Name="H4" Grid.Column="5" Grid.Row="8" Width="90" Height="90"/>
+        <Button Name="H5" Grid.Column="6" Grid.Row="8" Width="90" Height="90"/>
+        <Button Name="H6" Grid.Column="7" Grid.Row="8" Width="90" Height="90"/>
+        <Button Name="H7" Grid.Column="8" Grid.Row="8" Width="90" Height="90"/>
     </Grid>
 </Window>
