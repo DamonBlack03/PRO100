@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FileIO.Models;
 
 namespace FileIO
 {
@@ -38,30 +37,15 @@ namespace FileIO
                         p[x, y] = new Knight(light);
                         break;
                     default:
+                        p[x, y] = null;
                         break;
                 }
 
             }
         }
 
-        static void Main(string[] args)
+        public static void MoveSingle(ref Piece[,] p)
         {
-            //Rook doesn't work correctly
-
-            Piece[,] p = new Piece[8, 8];
-            InitializeBoard(ref p);
-            //for (int i = 0; i < p.GetLength(0); i++)
-            //{
-            //    for (int y = 0; y < p.GetLength(1); y++)
-            //    {
-            //        if(p[i, y] != null)
-            //        {
-            //            Console.WriteLine(p[i,y].ToString());
-
-            //        }
-            //    }
-            //}
-
             string[] tests = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\MoveTests1.txt");
 
             //Console.WriteLine(tests.Length);
@@ -78,7 +62,7 @@ namespace FileIO
                     {
                         char temp_from_letter = tests[i].ToUpper()[0];
                         int temp_from_number = (int)(tests[i][1] - '0');
-                       // temp_from_number -= '0';
+                        // temp_from_number -= '0';
 
                         char temp_letter = tests[i].ToUpper()[3];
                         int temp_number = (int)(tests[i][4] - '0');
@@ -91,9 +75,9 @@ namespace FileIO
                                 $"{temp_from_letter}{(int)(tests[i][1] - '0')} to position {temp_letter}{(int)(tests[i][4] - '0')}");
                             temp_from_letter -= 'A';
                             temp_letter -= 'A';
-                            
+
                             //Console.WriteLine((temp_from_letter.ToString()));
-                            p[(int)(tests[i][1] - '0'), (int)temp_from_letter].Move(ref p, temp_from_letter, (int)(tests[i][1] - '0'), 
+                            p[(int)(tests[i][1] - '0'), (int)temp_from_letter].Move(ref p, temp_from_letter, (int)(tests[i][1] - '0'),
                                 temp_letter,
                                 (int)(tests[i][4] - '0'));
                         }
@@ -102,10 +86,27 @@ namespace FileIO
                     {
                         Console.WriteLine("Position not on board, no move was made.");
                     }
-
                 }
-                //Console.WriteLine(count++);
             }
+        }
+
+        public static void MoveTwo(ref Piece[,] p)
+        {
+            InitializeBoard(ref p);
+            string[] tests = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\MoveTests1.txt");
+
+        }
+
+        static void Main(string[] args)
+        {
+            //Rook doesn't work correctly
+
+            Piece[,] p = new Piece[8, 8];
+            InitializeBoard(ref p);
+            MoveSingle(ref p);
+            //MoveTwo(ref p);
+            
         }
     }
 }
+
