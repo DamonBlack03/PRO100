@@ -52,7 +52,7 @@
         <Label Name="G" Grid.Column="0" Grid.Row="7" Content="G" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
         <Label Name="H" Grid.Column="0" Grid.Row="8" Content="H" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
 
-        <Button Name="A0" Grid.Column="1" Grid.Row="1" Width="90" Height="90" Background="White" FontSize="24"/>
+        <Button Name="A0" Grid.Column="1" Grid.Row="1" Width="90" Height="90" Background="White" FontSize="24" Click="A0_Click"/>
         <Button Name="A1" Grid.Column="2" Grid.Row="1" Width="90" Height="90" Background="DodgerBlue" FontSize="24"/>
         <Button Name="A2" Grid.Column="3" Grid.Row="1" Width="90" Height="90" Background="White" FontSize="24"/>
         <Button Name="A3" Grid.Column="4" Grid.Row="1" Width="90" Height="90" Background="DodgerBlue" FontSize="24"/>

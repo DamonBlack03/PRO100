@@ -20,48 +20,42 @@ namespace BoardDisplay.Models
             }
         }
 
-        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
             bool possible = false;
-            from_letter -= 'A';
-            letter -= 'A';
 
-            if ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) &&
-                (letter < 8 && letter > -1) && (number < 8 && number > -1))
+            if ((from_row < 8 && from_row > -1) && (from_column < 8 && from_column > -1) &&
+                (row < 8 && row > -1) && (column < 8 && column > -1))
             {
-                if (from_letter == letter && from_number != number)
+                if (from_row == row && from_column != column)
                 {
-                    if (from_number < number)
+                    if (from_column < column)
                     {
-                        for (int i = 0; i < number - from_number; i++)
+                        for (int i = 0; i < column - from_column; i++)
                         {
-                            if (from_number + i < 8)
+                            if (from_column + i < 8)
                             {
-                                if (p[from_number + i, from_letter] == null)
+                                if (p[from_row + i, from_column] == null)
                                 {
                                     possible = true;
                                 }
                                 else
                                 {
-                                    if (p[number, letter] != null)
+                                    if (p[from_row, from_column].Color != p[row, column].Color)
                                     {
-                                        if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                        possible = true;
+                                        i = from_column;
+                                    }
+                                    else
+                                    {
+                                        if (i != column - from_column)
                                         {
-                                            possible = true;
-                                            i = from_number;
-                                        }
-                                        else
-                                        {
-                                            if (i != number - from_number)
+                                            if (p[from_row, from_column].Color != p[row, column].Color)
                                             {
-                                                if (p[from_number, from_letter].Color != p[number, letter].Color)
-                                                {
-                                                    possible = true;
-                                                    i = number;
-                                                }
+                                                possible = true;
+                                                i = column;
                                             }
                                         }
-
                                     }
                                 }
                             }
@@ -69,27 +63,27 @@ namespace BoardDisplay.Models
                     }
                     else
                     {
-                        for (int i = from_number - number; i > 0; i--)
+                        for (int i = from_column - column; i > 0; i--)
                         {
-                            if (p[from_number + i, from_letter] == null)
+                            if (p[from_row + i, from_column] == null)
                             {
                                 possible = true;
                             }
                             else
                             {
-                                if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                if (p[from_row, from_column].Color != p[row, column].Color)
                                 {
                                     possible = true;
-                                    i = number;
+                                    i = column;
                                 }
                                 else
                                 {
-                                    if (i != from_number - number)
+                                    if (i != from_column - column)
                                     {
-                                        if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                        if (p[from_row, from_column].Color != p[row, column].Color)
                                         {
                                             possible = true;
-                                            i = from_number;
+                                            i = from_column;
                                         }
                                     }
                                 }
@@ -97,24 +91,24 @@ namespace BoardDisplay.Models
                         }
                     }
                 }
-                else if (from_letter != letter && from_number == number)
+                else if (from_row != row && from_column == column)
                 {
-                    if (from_letter < letter)
+                    if (from_row < row)
                     {
-                        for (int i = 0; i < letter - from_letter; i++)
+                        for (int i = 0; i < row - from_row; i++)
                         {
-                            if (p[from_number, from_letter + i] == null)
+                            if (p[from_row, from_column + i] == null)
                             {
                                 possible = true;
                             }
                             else
                             {
-                                if (i == letter - from_letter)
+                                if (i == row - from_row)
                                 {
-                                    if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                    if (p[from_row, from_column].Color != p[row, column].Color)
                                     {
                                         possible = true;
-                                        i = letter;
+                                        i = row;
                                     }
                                 }
                             }
@@ -122,20 +116,20 @@ namespace BoardDisplay.Models
                     }
                     else
                     {
-                        for (int i = from_letter - letter; i > 0; i--)
+                        for (int i = from_row - row; i > 0; i--)
                         {
-                            if (p[from_number, from_letter + i] == null)
+                            if (p[from_row, from_column + i] == null)
                             {
                                 possible = true;
                             }
                             else
                             {
-                                if (i == from_letter - letter)
+                                if (i == from_row - row)
                                 {
-                                    if (p[from_number, from_letter].Color != p[number, letter].Color)
+                                    if (p[from_row, from_column].Color != p[row, column].Color)
                                     {
                                         possible = true;
-                                        i = from_letter;
+                                        i = from_row;
                                     }
                                 }
                             }
@@ -143,7 +137,6 @@ namespace BoardDisplay.Models
                     }
                 }
             }
-
             return possible;
         }
 

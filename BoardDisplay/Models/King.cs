@@ -20,44 +20,41 @@ namespace BoardDisplay.Models
             }
         }
 
-        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
-            from_letter -= 'A';
-            letter -= 'A';
-            bool possible = ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) && (letter < 8 && letter > -1) && (number < 8 && number > -1)) ? (letter == (from_letter - 1) || letter == (from_letter + 1)) ? (number == from_number || number == (from_number - 1) || number == (from_number + 1)) ? (p[number, letter] == null) ? true : (p[number, letter].Color != p[from_number, from_letter].Color) ? true : false : false : (letter == from_letter) ? (number == (from_number - 1) || number == (from_number + 1)) ? (p[number, letter] == null) ? true : (p[number, letter].Color != p[from_number, from_letter].Color) ? true : false : false : false : false;
-
-            //if ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) &&
-            //    (letter < 8 && letter > -1) && (number < 8 && number > -1))
-            //{
-            //    if(letter == (from_letter - 1) || letter == (from_letter + 1))
-            //    {
-            //        if(number == from_number || number == (from_number - 1) || number == (from_number + 1))
-            //        {
-            //            if (p[number,letter] == null)
-            //            {
-            //                possible = true;
-            //            }
-            //            else if (p[number,letter].Color != p[from_number,from_letter].Color)
-            //            {
-            //                possible = true;
-            //            }
-            //        }
-            //    }
-            //    else if (letter == from_letter)
-            //    {
-            //        if (number == (from_number - 1) || number == (from_number + 1))
-            //        {
-            //            if (p[number,letter] == null)
-            //            {
-            //                possible = true;
-            //            }
-            //            else if (p[number,letter].Color != p[from_number,from_letter].Color)
-            //            {
-            //                possible = true;
-            //            }
-            //        }
-            //    }
-            //}
+            bool possible = false;
+            if ((from_row < 8 && from_row > -1) && (from_column < 8 && from_column > -1) &&
+                (row < 8 && row > -1) && (column < 8 && column > -1))
+            {
+                if (row == (from_row - 1) || row == (from_row + 1))
+                {
+                    if (column == from_column || column == (from_column - 1) || column == (from_column + 1))
+                    {
+                        if (p[row, column] == null)
+                        {
+                            possible = true;
+                        }
+                        else if (p[row, column].Color != p[from_row, from_column].Color)
+                        {
+                            possible = true;
+                        }
+                    }
+                }
+                else if (row == from_row)
+                {
+                    if (column == (from_column - 1) || column == (from_column + 1))
+                    {
+                        if (p[row, column] == null)
+                        {
+                            possible = true;
+                        }
+                        else if (p[row, column].Color != p[from_row, from_column].Color)
+                        {
+                            possible = true;
+                        }
+                    }
+                }
+            }
 
             return possible;
         }

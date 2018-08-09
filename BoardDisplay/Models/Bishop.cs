@@ -20,128 +20,120 @@ namespace BoardDisplay.Models
             }
         }
 
-        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
             bool possible = false;
-            from_letter -= 'A';
-            letter -= 'A';
-            int x = number - from_number;
-            int y = letter - from_letter;
-
-            if ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) &&
-                (letter < 8 && letter > -1) && (number < 8 && number > -1))
+            int x = column - from_column;
+            int y = row - from_row;
+            if (Math.Abs(x) == Math.Abs(y))
             {
-                if (Math.Abs(x) == Math.Abs(y))
+                if (x > 0)
                 {
-                    if (x > 0)
+                    if (y > 0)
                     {
-                        if (y > 0)
+                        for (int i = 1; i <= Math.Abs(x); i++)
                         {
-                            for (int i = 1; i <= Math.Abs(x); i++)
+                            if (p[from_row + i, from_column + i] == null)
                             {
-                                if (p[from_number + i, from_letter + i] == null)
+                                if (from_row + i == row && from_column + i == column)
                                 {
-                                    if (from_letter + i == letter && from_number + i == number)
-                                    {
-                                        possible = true;
-                                    }
-                                }
-                                else
-                                {
-                                    if (from_letter + i == letter && from_number + i == number &&
-                                        p[number, letter].Color != p[from_number, from_letter].Color)
-                                    {
-                                        possible = true;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
+                                    possible = true;
                                 }
                             }
-                        }
-                        else
-                        {
-                            for (int i = 1; i <= Math.Abs(x); i++)
+                            else
                             {
-                                if (p[from_number + i, from_letter - i] == null)
+                                if (from_row + i == row && from_column + i == column &&
+                                    p[row, column].Color != p[from_row, from_column].Color)
                                 {
-                                    if (from_letter - i == letter && from_number + i == number)
-                                    {
-                                        possible = true;
-                                    }
+                                    possible = true;
                                 }
                                 else
                                 {
-                                    if (from_letter - i == letter && from_number + i == number &&
-                                        p[number, letter].Color != p[from_number, from_letter].Color)
-                                    {
-                                        possible = true;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
+                                    break;
                                 }
                             }
                         }
                     }
                     else
                     {
-                        if (y > 0)
+                        for (int i = 1; i <= Math.Abs(x); i++)
                         {
-                            for (int i = 1; i <= Math.Abs(x); i++)
+                            if (p[from_row + i, from_column - i] == null)
                             {
-                                if (p[from_number - i, from_letter + i] == null)
+                                if (from_row - i == row && from_column + i == column)
                                 {
-                                    if (from_letter + i == letter && from_number - i == number)
-                                    {
-                                        possible = true;
-                                    }
+                                    possible = true;
+                                }
+                            }
+                            else
+                            {
+                                if (from_row - i == row && from_column + i == column &&
+                                    p[row, column].Color != p[from_row, from_column].Color)
+                                {
+                                    possible = true;
                                 }
                                 else
                                 {
-                                    if (from_letter + i == letter && from_number - i == number &&
-                                        p[number, letter].Color != p[from_number, from_letter].Color)
-                                    {
-                                        possible = true;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
+                                    break;
                                 }
                             }
                         }
-                        else
+                    }
+                }
+                else
+                {
+                    if (y > 0)
+                    {
+                        for (int i = 1; i <= Math.Abs(x); i++)
                         {
-                            for (int i = 1; i <= Math.Abs(x); i++)
+                            if (p[from_row - i, from_column + i] == null)
                             {
-                                if (p[from_number - i, from_letter - i] == null)
+                                if (from_row + i == row && from_column - i == column)
                                 {
-                                    if (from_letter - i == letter && from_number - i == number)
-                                    {
-                                        possible = true;
-                                    }
+                                    possible = true;
+                                }
+                            }
+                            else
+                            {
+                                if (from_row + i == row && from_column - i == column &&
+                                    p[row, column].Color != p[from_row, from_column].Color)
+                                {
+                                    possible = true;
                                 }
                                 else
                                 {
-                                    if (from_letter - i == letter && from_number - i == number &&
-                                        p[number, letter].Color != p[from_number, from_letter].Color)
-                                    {
-                                        possible = true;
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 1; i <= Math.Abs(x); i++)
+                        {
+                            if (p[from_row - i, from_column - i] == null)
+                            {
+                                if (from_row - i == row && from_column - i == column)
+                                {
+                                    possible = true;
+                                }
+                            }
+                            else
+                            {
+                                if (from_row - i == row && from_column - i == column &&
+                                    p[row, column].Color != p[from_row, from_column].Color)
+                                {
+                                    possible = true;
+                                }
+                                else
+                                {
+                                    break;
                                 }
                             }
                         }
                     }
                 }
             }
-
             return possible;
         }
 

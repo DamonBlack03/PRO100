@@ -26,36 +26,23 @@ namespace BoardDisplay
 
         public void InitializePieces(ref Piece[,] p)
         {
-            string[] pieces = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\PiecePlacement.txt");
-            for (int i = 0; i < pieces.Length; i++)
-            {
-                int x = (int)(pieces[i][3] - '0');
-                int y = (int)(pieces[i][2] - 'A');
-                bool light = (pieces[i][1] == 'l') ? true : false;
-                char temp = pieces[i][0];
+            p[0, 0] = new Rook(false);
+            p[0, 1] = new Knight(false);
+            p[0, 2] = new Bishop(false);
+            p[0, 3] = new Queen(false);
+            p[0, 4] = new King(false);
+            p[0, 5] = new Bishop(false);
+            p[0, 6] = new Knight(false);
+            p[0, 7] = new Rook(false);
 
-                switch (temp)
-                {
-                    case 'Q':
-                        p[x, y] = new Queen(light);
-                        break;
-                    case 'K':
-                        p[x, y] = new King(light);
-                        break;
-                    case 'B':
-                        p[x, y] = new Bishop(light);
-                        break;
-                    case 'R':
-                        p[x, y] = new Rook(light);
-                        break;
-                    case 'N':
-                        p[x, y] = new Knight(light);
-                        break;
-                    default:
-                        p[x, y] = null;
-                        break;
-                }
-            }
+            p[7, 0] = new Rook(true);
+            p[7, 1] = new Knight(true);
+            p[7, 2] = new Bishop(true);
+            p[7, 3] = new Queen(true);
+            p[7, 4] = new King(true);
+            p[7, 5] = new Bishop(true);
+            p[7, 6] = new Knight(true);
+            p[7, 7] = new Rook(true);
         }
         public void SetupDisplay(ref Button[,] b)
         {
@@ -78,7 +65,7 @@ namespace BoardDisplay
                 }
             }
         }
-        public void InitializeDisplay(ref Button[,] b)
+        public void UpdateDisplay(ref Button[,] b)
         {
             for (int i = 0; i < b.GetLength(0); i++)
             {
@@ -90,45 +77,60 @@ namespace BoardDisplay
         }
         public void MoveSingle(ref Piece[,] p)
         {
-            string[] tests = System.IO.File.ReadAllLines(@"C:\Users\Damon Black\Desktop\Net\PRO100\FileIO\MoveTests1.txt");
+            
+            UpdateDisplay(ref BoardDisplay);
+        }
+        public void CheckMove(ref Button[,] board, Button b)
+        {
+            bool[,] moveable = new bool[8, 8];
+            int row = 0;
+            int column = 0;
 
-            int count = 0;
-            for (int i = 0; i<tests.Length; i++)
+            for (int i = 0; i < board.GetLength(0); i++)
             {
-                count++;
-                if (tests[i] != null && tests[i] != "")
+                for (int x = 0; x < board.GetLength(1); x++)
                 {
-                    if (tests[i][0] >= 'a' && tests[i][0] <= 'h' &&
-                        tests[i][3] >= 'a' && tests[i][3] <= 'h' &&
-                        tests[i][1] >= '0' && tests[i][1] <= '7' &&
-                        tests[i][4] >= '0' && tests[i][4] <= '7')
+                    if(board[i,x] == b)
                     {
-                        char temp_from_letter = tests[i].ToUpper()[0];
-                        int temp_from_number = (int)(tests[i][1] - '0');
-                        char temp_letter = tests[i].ToUpper()[3];
-                        int temp_number = (int)(tests[i][4] - '0');
-
-                        if (p[temp_from_number, temp_from_letter - 'A'] != null)
-                        {
-                            temp_from_letter -= 'A';
-                            temp_letter -= 'A';
-                            
-                            p[(int)(tests[i][1] - '0'), (int)temp_from_letter].Move(ref p, temp_from_letter, (int)(tests[i][1] - '0'),
-                                temp_letter,
-                                (int) (tests[i][4] - '0'));
-                        }
-                    }                                             
+                        row = i;
+                        column = x;
+                        i = 56;
+                        break;
+                    }
                 }
             }
-            InitializeDisplay(ref BoardDisplay);
+
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int x = 0; x < board.GetLength(1); x++)
+                {
+                    if (board[i, x] != b)
+                    {
+                        if (BoardArray[row, column].CanMove(ref BoardArray, row, column, i, x))
+                        {
+                            BoardDisplay[i, x].IsEnabled = true;
+                        }
+                        else
+                        {
+                            BoardDisplay[i, x].IsEnabled = false;
+                        }
+                    }
+                }
+            }
+
         }
         public MainWindow()
         {
             InitializeComponent();
             InitializePieces(ref BoardArray);
             SetupDisplay(ref BoardDisplay);
-            InitializeDisplay(ref BoardDisplay);
-            MoveSingle(ref BoardArray);
+            UpdateDisplay(ref BoardDisplay);           
         }
+
+        private void A0_Click(object sender, RoutedEventArgs e)
+        {
+            CheckMove(ref BoardDisplay, (Button)sender);
+        }
+
     }
 }

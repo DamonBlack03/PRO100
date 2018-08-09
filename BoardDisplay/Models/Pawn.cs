@@ -20,36 +20,34 @@ namespace BoardDisplay.Models
             }
         }
 
-        public override bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light)
+        public override bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
             bool possible = false;
-            from_letter -= 'A';
-            letter -= 'A';
 
-            if ((from_letter < 8 && from_letter > -1) && (from_number < 8 && from_number > -1) &&
-                (letter < 8 && letter > -1) && (number < 8 && number > -1))
+            if ((from_row < 8 && from_row > -1) && (from_column < 8 && from_column > -1) &&
+                (row < 8 && row > -1) && (column < 8 && column > -1))
             {
-                if (light)
+                if (Color == 0)
                 {
-                    if (letter == (from_letter - 1))
+                    if (row == (from_row - 1))
                     {
-                        if (from_number == number && p[number, letter] == null)
+                        if (from_column == column && p[row, column] == null)
                         {
                             possible = true;
                         }
-                        else if (number == (from_number - 1) || number == (from_number + 1))
+                        else if (column == (from_column - 1) || column == (from_column + 1))
                         {
-                            if (p[number, letter] != null && p[number, letter].Color != p[from_number, from_letter].Color)
+                            if (p[row, column] != null && p[row, column].Color != p[from_row, from_column].Color)
                             {
                                 possible = true;
                             }
                         }
                     }
-                    else if (from_letter == 6)
+                    else if (from_row == 6)
                     {
-                        if (letter == 4 && (from_number == number))
+                        if (row == 4 && (from_column == column))
                         {
-                            if (p[number, letter] == null && p[number, letter - 1] == null)
+                            if (p[row, column] == null && p[row, column - 1] == null)
                             {
                                 possible = true;
                             }
@@ -58,25 +56,25 @@ namespace BoardDisplay.Models
                 }
                 else
                 {
-                    if (letter == (from_letter + 1))
+                    if (row == (from_row + 1))
                     {
-                        if (from_number == number && p[number, letter] == null)
+                        if (from_column == column && p[row, column] == null)
                         {
                             possible = true;
                         }
-                        else if (number == (from_number - 1) || number == (from_number + 1))
+                        else if (column == (from_column - 1) || column == (from_column + 1))
                         {
-                            if (p[number, letter] != null && p[number, letter].Color != p[from_number, from_letter].Color)
+                            if (p[row, column] != null && p[row, column].Color != p[from_row, from_column].Color)
                             {
                                 possible = true;
                             }
                         }
                     }
-                    else if (from_letter == 1)
+                    else if (from_row == 1)
                     {
-                        if (letter == 3 && (from_number == number))
+                        if (row == 3 && (from_column == column))
                         {
-                            if (p[number, letter] == null && p[number, letter - 1] == null)
+                            if (p[row, column] == null && p[row, column - 1] == null)
                             {
                                 possible = true;
                             }

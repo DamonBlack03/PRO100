@@ -19,7 +19,7 @@ namespace BoardDisplay.Models
         }
 
         //light pieces will be at bottom
-        public abstract bool CanMove(ref Piece[,] p, char from_letter, int from_number, char letter, int number, bool light);
+        public abstract bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column);
 
         //light-upper
         //dark-lower
