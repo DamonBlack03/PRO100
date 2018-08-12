@@ -23,6 +23,9 @@ namespace BoardDisplay
     {
         Button[,] BoardDisplay = new Button[8,8];
         Piece[,] BoardArray = new Piece[8, 8];
+        SolidColorBrush selectable = new SolidColorBrush(Color.FromArgb((byte)100, (byte)0, (byte)255, (byte)255));
+        Piece moving;
+        int moving_row, moving_column;
 
         public void InitializePieces(ref Piece[,] p)
         {
@@ -72,6 +75,8 @@ namespace BoardDisplay
                 for (int x = 0; x < b.GetLength(1); x++)
                 {
                     b[i, x].Content = (BoardArray[i, x] != null) ? BoardArray[i, x].ToString() : "";
+                    b[i, x].IsEnabled = true;
+                    //b[i, x].Click += OnClick;
                 }
             }
         }
@@ -82,7 +87,7 @@ namespace BoardDisplay
         }
         public void CheckMove(ref Button[,] board, Button b)
         {
-            bool[,] moveable = new bool[8, 8];
+            //bool[,] moveable = new bool[8, 8];
             int row = 0;
             int column = 0;
 
@@ -94,6 +99,9 @@ namespace BoardDisplay
                     {
                         row = i;
                         column = x;
+                        moving_row = i;
+                        moving_column = x;
+                        moving = BoardArray[i, x];
                         i = 56;
                         break;
                     }
@@ -109,15 +117,74 @@ namespace BoardDisplay
                         if (BoardArray[row, column].CanMove(ref BoardArray, row, column, i, x))
                         {
                             BoardDisplay[i, x].IsEnabled = true;
+                            //BoardDisplay[i, x].Click += OnClick;
+                            BoardDisplay[i, x].Background = selectable;
                         }
                         else
                         {
                             BoardDisplay[i, x].IsEnabled = false;
+                            BoardDisplay[i, x].Click -= OnClick;
                         }
                     }
                 }
             }
 
+        }
+        private void ResetColor(ref Button[,] b)
+        {
+            for (int i = 0; i < b.GetLength(0); i++)
+            {
+                for (int x = 0; x < b.GetLength(1); x++)
+                {
+                    if ((i % 2 == 0 && x % 2 == 1) || (i % 2 == 1 && x % 2 == 0))
+                    {
+                        b[i, x].Background = Brushes.DodgerBlue;
+                    }
+                    else
+                    {
+                        b[i, x].Background = Brushes.White;
+                    }
+                }
+            }
+        }
+        private bool Select(Button[,] b)
+        {
+            bool selecting = true;
+            for (int i = 0; i < b.GetLength(0); i++)
+            {
+                for (int x = 0; x < b.GetLength(1); x++)
+                {
+                    if(b[i,x].Background == selectable)
+                    {
+                        selecting = false;
+                    }
+                }
+            }
+
+            return selecting;
+        }
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Select(BoardDisplay))
+            {
+                CheckMove(ref BoardDisplay, (Button)sender);
+            }
+            else
+            {
+                for (int i = 0; i < BoardDisplay.GetLength(0); i++)
+                {
+                    for (int x = 0; x < BoardDisplay.GetLength(1); x++)
+                    {
+                        if (BoardDisplay[i, x] == (Button)sender)
+                        {
+                            moving.Move(ref BoardArray, moving_row, moving_column, i, x);
+                            UpdateDisplay(ref BoardDisplay);
+                            ResetColor(ref BoardDisplay);
+                        }
+                    }
+                }
+            }
+            //MessageBox.Show("Is it me you're looking for");
         }
         public MainWindow()
         {
@@ -127,10 +194,6 @@ namespace BoardDisplay
             UpdateDisplay(ref BoardDisplay);           
         }
 
-        private void A0_Click(object sender, RoutedEventArgs e)
-        {
-            CheckMove(ref BoardDisplay, (Button)sender);
-        }
 
     }
 }

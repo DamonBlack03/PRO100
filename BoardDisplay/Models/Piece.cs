@@ -12,10 +12,10 @@ namespace BoardDisplay.Models
         //1-dark
         public int Color { get; set; }
 
-        public void Move(ref Piece[,] p, char from_letter, int from_number, char letter, int number)
+        public void Move(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
-            p[number, letter] = this;
-            p[from_number, from_letter] = null;
+            p[row, column] = this;
+            p[from_row, from_column] = null;
         }
 
         //light pieces will be at bottom
