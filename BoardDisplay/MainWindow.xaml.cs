@@ -75,10 +75,9 @@ namespace BoardDisplay
                 for (int x = 0; x < b.GetLength(1); x++)
                 {
                     b[i, x].Content = (BoardArray[i, x] != null) ? BoardArray[i, x].ToString() : "";
-                    //b[i, x].IsEnabled = true;
-                    b[i, x].Click += OnClick;
                 }
             }
+            ResetClick(ref b);
         }
         public void MoveSingle(ref Piece[,] p)
         {
@@ -134,7 +133,17 @@ namespace BoardDisplay
         {
             b[row, column].Click += OnClick;
         }
-
+        private void ResetClick(ref Button[,] b)
+        {
+            for (int i = 0; i < b.GetLength(0); i++)
+            {
+                for (int x = 0; x < b.GetLength(1); x++)
+                {
+                    b[i, x].Click -= OnClick;
+                    b[i, x].Click += OnClick;
+                }
+            }
+        }
         private void ResetColor(ref Button[,] b)
         {
             for (int i = 0; i < b.GetLength(0); i++)
