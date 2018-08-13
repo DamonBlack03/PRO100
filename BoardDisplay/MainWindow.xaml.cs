@@ -75,8 +75,8 @@ namespace BoardDisplay
                 for (int x = 0; x < b.GetLength(1); x++)
                 {
                     b[i, x].Content = (BoardArray[i, x] != null) ? BoardArray[i, x].ToString() : "";
-                    b[i, x].IsEnabled = true;
-                    //b[i, x].Click += OnClick;
+                    //b[i, x].IsEnabled = true;
+                    b[i, x].Click += OnClick;
                 }
             }
         }
@@ -116,26 +116,32 @@ namespace BoardDisplay
                     {
                         if (BoardArray[row, column].CanMove(ref BoardArray, row, column, i, x))
                         {
-                            BoardDisplay[i, x].IsEnabled = true;
+                            //BoardDisplay[i, x].IsEnabled = true;
                             //BoardDisplay[i, x].Click += OnClick;
                             BoardDisplay[i, x].Background = selectable;
+                            TurnOnClick(ref BoardDisplay, i, x);
                         }
                         else
                         {
-                            BoardDisplay[i, x].IsEnabled = false;
+                            //BoardDisplay[i, x].IsEnabled = false;
                             BoardDisplay[i, x].Click -= OnClick;
                         }
                     }
                 }
             }
-
         }
+        private void TurnOnClick(ref Button[,] b, int row, int column)
+        {
+            b[row, column].Click += OnClick;
+        }
+
         private void ResetColor(ref Button[,] b)
         {
             for (int i = 0; i < b.GetLength(0); i++)
             {
                 for (int x = 0; x < b.GetLength(1); x++)
                 {
+                    //b[i, x].Click += OnClick;
                     if ((i % 2 == 0 && x % 2 == 1) || (i % 2 == 1 && x % 2 == 0))
                     {
                         b[i, x].Background = Brushes.DodgerBlue;
@@ -175,11 +181,12 @@ namespace BoardDisplay
                 {
                     for (int x = 0; x < BoardDisplay.GetLength(1); x++)
                     {
+                        //TurnOnClick(ref BoardDisplay, i, x);
                         if (BoardDisplay[i, x] == (Button)sender)
                         {
                             moving.Move(ref BoardArray, moving_row, moving_column, i, x);
-                            UpdateDisplay(ref BoardDisplay);
                             ResetColor(ref BoardDisplay);
+                            UpdateDisplay(ref BoardDisplay);
                         }
                     }
                 }
