@@ -97,18 +97,21 @@ namespace BoardDisplay.Models
                     {
                         for (int i = 0; i < row - from_row; i++)
                         {
-                            if (p[from_row, from_column + i] == null)
+                            if (from_column + i < 8)
                             {
-                                possible = true;
-                            }
-                            else
-                            {
-                                if (i == row - from_row)
+                                if (p[from_row, from_column + i] == null)
                                 {
-                                    if (p[from_row, from_column].Color != p[row, column].Color)
+                                    possible = true;
+                                }
+                                else
+                                {
+                                    if (i == row - from_row)
                                     {
-                                        possible = true;
-                                        i = row;
+                                        if (p[from_row, from_column].Color != p[row, column].Color)
+                                        {
+                                            possible = true;
+                                            i = row;
+                                        }
                                     }
                                 }
                             }
