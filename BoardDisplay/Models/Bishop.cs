@@ -58,23 +58,29 @@ namespace BoardDisplay.Models
                     {
                         for (int i = 1; i <= Math.Abs(x); i++)
                         {
-                            if (p[from_row + i, from_column - i] == null)
+                            if (from_row + i < 8 && from_column - i > 0)
                             {
-                                if (from_row - i == row && from_column + i == column)
+                                if (p[from_row + i, from_column - i] == null)
                                 {
-                                    possible = true;
-                                }
-                            }
-                            else
-                            {
-                                if (from_row - i == row && from_column + i == column &&
-                                    p[row, column].Color != p[from_row, from_column].Color)
-                                {
-                                    possible = true;
+                                    if (from_row - i > 0 && from_column + i < 8)
+                                    {
+                                        if (from_row - i == row && from_column + i == column)
+                                        {
+                                            possible = true;
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    break;
+                                    if (from_row - i == row && from_column + i == column &&
+                                        p[row, column].Color != p[from_row, from_column].Color)
+                                    {
+                                        possible = true;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -86,23 +92,33 @@ namespace BoardDisplay.Models
                     {
                         for (int i = 1; i <= Math.Abs(x); i++)
                         {
-                            if (p[from_row - i, from_column + i] == null)
+                            if(from_row - i > 0 && from_column + i < 8)
                             {
-                                if (from_row + i == row && from_column - i == column)
+                                if (p[from_row - i, from_column + i] == null)
                                 {
-                                    possible = true;
-                                }
-                            }
-                            else
-                            {
-                                if (from_row + i == row && from_column - i == column &&
-                                    p[row, column].Color != p[from_row, from_column].Color)
-                                {
-                                    possible = true;
+                                    if (from_row + i == row && from_column - i == column)
+                                    {
+                                        possible = true;
+                                    }
                                 }
                                 else
                                 {
-                                    break;
+                                    if (from_row + i < 8 && from_column - i > 0)
+                                    {
+                                        if (from_row + i == row && from_column - i == column &&
+                                        p[row, column].Color != p[from_row, from_column].Color)
+                                        {
+                                            possible = true;
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                         }

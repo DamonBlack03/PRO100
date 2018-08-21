@@ -96,6 +96,7 @@ namespace BoardDisplay
                 {
                     if(board[i,x] == b)
                     {
+                        board[i, x].Click -= OnClick;
                         row = i;
                         column = x;
                         moving_row = i;
@@ -139,8 +140,15 @@ namespace BoardDisplay
             {
                 for (int x = 0; x < b.GetLength(1); x++)
                 {
-                    b[i, x].Click -= OnClick;
-                    b[i, x].Click += OnClick;
+                    if(BoardArray[i,x] != null)
+                    {
+                        b[i, x].Click -= OnClick;
+                        b[i, x].Click += OnClick;
+                    }
+                    else
+                    {
+                        b[i, x].Click -= OnClick;
+                    }
                 }
             }
         }
