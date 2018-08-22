@@ -27,9 +27,9 @@ namespace BoardDisplay.Models
             if ((from_row < 8 && from_row > -1) && (from_column < 8 && from_column > -1) &&
                 (row < 8 && row > -1) && (column < 8 && column > -1))
             {
-                if (from_row == row && from_column != column)
+                if (from_row == row && from_column != column)//going side to side
                 {
-                    if (from_column < column)
+                    if (from_column < column)//going  right
                     {
                         for (int i = 0; i < column - from_column; i++)
                         {
@@ -50,7 +50,7 @@ namespace BoardDisplay.Models
                             }
                         }
                     }
-                    else
+                    else// going left
                     {
                         for (int i = from_column - column; i > 0; i--)
                         {
@@ -69,7 +69,7 @@ namespace BoardDisplay.Models
                         }
                     }
                 }
-                else if (from_row != row && from_column == column)
+                else if (from_row != row && from_column == column)//going uo or down
                 {
                     if (from_row < row) // moving down
                     {
@@ -95,7 +95,7 @@ namespace BoardDisplay.Models
                             }
                         }
                     }
-                    else
+                    else // moving up
                     {
                         for (int i = from_row - row; i > 0; i--)
                         {
