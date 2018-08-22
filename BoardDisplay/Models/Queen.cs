@@ -149,9 +149,9 @@ namespace BoardDisplay.Models
                 int y = row - from_row;
                 if (Math.Abs(x) == Math.Abs(y))
                 {
-                    if (x > 0)
+                    if (x > 0)//right side
                     {
-                        if (y > 0)
+                        if (y > 0)//going down
                         {
                             for (int i = 1; i <= Math.Abs(x); i++)
                             {
@@ -171,46 +171,55 @@ namespace BoardDisplay.Models
                                     }
                                     else
                                     {
+                                        possible = false;
                                         break;
                                     }
                                 }
                             }
                         }
-                        else
+                        else// going up
                         {
                             for (int i = 1; i <= Math.Abs(x); i++)
                             {
-                                if (p[from_row + i, from_column - i] == null)
+                                if (from_row - i >= 0 && from_column + i < 8)
                                 {
-                                    if (from_row - i == row && from_column + i == column)
+                                    if (p[from_row - i, from_column + i] == null)
                                     {
-                                        possible = true;
-                                    }
-                                }
-                                else
-                                {
-                                    if (from_row - i == row && from_column + i == column &&
-                                        p[row, column].Color != p[from_row, from_column].Color)
-                                    {
+                                        //if (from_row - i >= 0 && from_column + i < 8)
+                                        //{
+                                        //    if (from_row - i == row && from_column + i == column)
+                                        //    {
+                                        //        possible = true;
+                                        //    }
+                                        //}
                                         possible = true;
                                     }
                                     else
                                     {
-                                        break;
+                                        if (/*from_row - i == row && from_column + i == column &&*/
+                                            p[row, column].Color != p[from_row, from_column].Color)
+                                        {
+                                            possible = true;
+                                        }
+                                        else
+                                        {
+                                            possible = false;
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                    else
+                    else//going left
                     {
-                        if (y > 0)
+                        if (y > 0) // going down
                         {
                             for (int i = 1; i <= Math.Abs(x); i++)
                             {
-                                if (from_row - i > 0)
+                                if (from_row + i < 8 && from_column - i >= 0)
                                 {
-                                    if (p[from_row - i, from_column + i] == null)
+                                    if (p[from_row + i, from_column - i] == null)
                                     {
                                         if (from_row + i == row && from_column - i == column)
                                         {
@@ -219,20 +228,28 @@ namespace BoardDisplay.Models
                                     }
                                     else
                                     {
-                                        if (from_row + i == row && from_column - i == column &&
-                                            p[row, column].Color != p[from_row, from_column].Color)
+                                        //if (from_row + i < 8 && from_column - i >= 0)
+                                        //{
+                                        if (/*from_row + i == row && from_column - i == column &&*/
+                                        p[row, column].Color != p[from_row, from_column].Color)
                                         {
                                             possible = true;
                                         }
                                         else
                                         {
+                                            possible = false;
                                             break;
                                         }
+                                        //}
+                                        //else
+                                        //{
+                                        //    break;
+                                        //}
                                     }
                                 }
                             }
                         }
-                        else
+                        else// going up
                         {
                             for (int i = 1; i <= Math.Abs(x); i++)
                             {
@@ -245,13 +262,14 @@ namespace BoardDisplay.Models
                                 }
                                 else
                                 {
-                                    if (from_row - i == row && from_column - i == column &&
+                                    if (/*from_row - i == row && from_column - i == column &&*/
                                         p[row, column].Color != p[from_row, from_column].Color)
                                     {
                                         possible = true;
                                     }
                                     else
                                     {
+                                        possible = false;
                                         break;
                                     }
                                 }
