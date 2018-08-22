@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BoardDisplay"
         mc:Ignorable="d"
-        Title="MainWindow" Height="844" Width="822" ResizeMode="NoResize">
+        Title="MainWindow" Height="844" Width="822" ResizeMode="NoResize"
+        Loaded="Window_Loaded">
     <Grid Name="Board" ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="90"/>

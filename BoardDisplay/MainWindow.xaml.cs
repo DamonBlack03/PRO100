@@ -21,6 +21,7 @@ namespace BoardDisplay
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool playerSwitch = true; 
         Button[,] BoardDisplay = new Button[8,8];
         Piece[,] BoardArray = new Piece[8, 8];
         SolidColorBrush selectable = new SolidColorBrush(Color.FromArgb((byte)100, (byte)0, (byte)255, (byte)255));
@@ -142,8 +143,16 @@ namespace BoardDisplay
                 {
                     if(BoardArray[i,x] != null)
                     {
-                        b[i, x].Click -= OnClick;
-                        b[i, x].Click += OnClick;
+                        if((playerSwitch == true && BoardArray[i,x].Color == 0) ||
+                            playerSwitch == false && BoardArray[i, x].Color == 1)
+                        {
+                            b[i, x].Click -= OnClick;
+                            b[i, x].Click += OnClick;
+                        }
+                        else 
+                        {
+                            b[i, x].Click -= OnClick;
+                        }
                     }
                     else
                     {
@@ -202,14 +211,22 @@ namespace BoardDisplay
                         if (BoardDisplay[i, x] == (Button)sender)
                         {
                             moving.Move(ref BoardArray, moving_row, moving_column, i, x);
+                            playerSwitch = !playerSwitch;
                             ResetColor(ref BoardDisplay);
                             UpdateDisplay(ref BoardDisplay);
+                            MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
                         }
                     }
                 }
             }
             //MessageBox.Show("Is it me you're looking for");
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
+        }
+
         public MainWindow()
         {
             InitializeComponent();
