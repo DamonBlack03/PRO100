@@ -44,18 +44,7 @@ namespace BoardDisplay.Models
                                     if (p[from_row, from_column].Color != p[row, column].Color)
                                     {
                                         possible = true;
-                                        i = from_column;
-                                    }
-                                    else
-                                    {
-                                        if (i != column - from_column)
-                                        {
-                                            if (p[from_row, from_column].Color != p[row, column].Color)
-                                            {
-                                                possible = true;
-                                                i = column;
-                                            }
-                                        }
+                                        i = 56;
                                     }
                                 }
                             }
@@ -65,7 +54,7 @@ namespace BoardDisplay.Models
                     {
                         for (int i = from_column - column; i > 0; i--)
                         {
-                            if (p[from_row + i, from_column] == null)
+                            if (p[from_row, from_column - i] == null)
                             {
                                 possible = true;
                             }
@@ -74,18 +63,7 @@ namespace BoardDisplay.Models
                                 if (p[from_row, from_column].Color != p[row, column].Color)
                                 {
                                     possible = true;
-                                    i = column;
-                                }
-                                else
-                                {
-                                    if (i != from_column - column)
-                                    {
-                                        if (p[from_row, from_column].Color != p[row, column].Color)
-                                        {
-                                            possible = true;
-                                            i = from_column;
-                                        }
-                                    }
+                                    i = 56;
                                 }
                             }
                         }
@@ -93,13 +71,13 @@ namespace BoardDisplay.Models
                 }
                 else if (from_row != row && from_column == column)
                 {
-                    if (from_row < row)
+                    if (from_row < row) // moving down
                     {
                         for (int i = 0; i < row - from_row; i++)
                         {
-                            if (from_column + i < 8)
+                            if (from_row + i < 8)
                             {
-                                if (p[from_row, from_column + i] == null)
+                                if (p[from_row + i, from_column] == null)
                                 {
                                     possible = true;
                                 }
@@ -110,7 +88,7 @@ namespace BoardDisplay.Models
                                         if (p[from_row, from_column].Color != p[row, column].Color)
                                         {
                                             possible = true;
-                                            i = row;
+                                            i = 56;
                                         }
                                     }
                                 }
@@ -132,7 +110,7 @@ namespace BoardDisplay.Models
                                     if (p[from_row, from_column].Color != p[row, column].Color)
                                     {
                                         possible = true;
-                                        i = from_row;
+                                        i = 56;
                                     }
                                 }
                             }
