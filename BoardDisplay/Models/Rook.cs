@@ -31,115 +31,171 @@ namespace BoardDisplay.Models
                 {
                     if (from_column < column)//going  right
                     {
-                        for (int i = from_column + 1; i <= column; i++)
+                        for (int i = column; i >= from_column + 1; i--)
                         {
-                            if (i < 8)
+                            //if (i < 8)
+                            //{
+                            if (p[from_row, i] == null)
                             {
-                                if (p[from_row, i] == null)
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_row, from_column].Color != p[row, i].Color)
                                 {
-                                    possible = true;
-                                }
-                                else
-                                {
-                                    if (p[from_row, from_column].Color != p[row, i].Color)
+                                    if (i == column)
                                     {
                                         possible = true;
-                                        break;
+                                        for (int x = i - 1; x > from_column; x--)
+                                        {
+                                            if (p[row, x] != null)
+                                            {
+                                                possible = false;
+                                                break;
+                                            }
+                                        }
                                     }
                                     else
                                     {
-                                        possible = false;
-                                        break;
+                                        possible = false;                                   
                                     }
                                 }
+                                else
+                                {
+                                    possible = false;
+                                }
+                                break;
                             }
+                            //}
                         }
                     }
                     else// going left
                     {
-                        for (int i = from_column - 1; i >= column; i--)
+                        for (int i = column; i <= from_column - 1; i++)
                         {
-                            if (i > -1)
+                            //if (i > -1)
+                            //{
+                            if (p[from_row, i] == null)
                             {
-                                if (p[from_row, i] == null)
+                                possible = true;
+                            }
+                            else
+                            {
+                                if (p[from_row, from_column].Color != p[row, i].Color)
                                 {
-                                    possible = true;
-                                }
-                                else
-                                {
-                                    if (p[from_row, from_column].Color != p[row, i].Color)
+                                    if (i == column)
                                     {
                                         possible = true;
-                                        break;
+                                        for (int x = i + 1; x < from_column; x++)
+                                        {
+                                            if (p[row, x] != null)
+                                            {
+                                                possible = false;
+                                                break;
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         possible = false;
-                                        break;
                                     }
                                 }
+                                else
+                                {
+                                    possible = false;
+                                }
+                                break;
                             }
+                            //}
                         }
                     }
                 }
-                else if (from_row != row && from_column == column)//going uo or down
+                else if (from_row != row && from_column == column)//going up or down
                 {
                     if (from_row < row) // moving down
                     {
-                        for (int i = from_row + 1; i <= row; i++)
+                        for (int i = row; i >= from_row + 1; i--)
                         {
-                            if (i < 8)
+                            //if (i < 8)
+                            //{
+                            if (p[i, from_column] == null)
                             {
-                                if (p[i, from_column] == null)
+                                possible = true;
+                            }
+                            else
+                            {
+                                //if (i == row - from_row)
+                                //{
+                                if (p[from_row, from_column].Color != p[i, column].Color)
                                 {
-                                    possible = true;
-                                }
-                                else
-                                {
-                                    //if (i == row - from_row)
-                                    //{
-                                    if (p[from_row, from_column].Color != p[i, column].Color)
+                                    if (i == row)
                                     {
                                         possible = true;
-                                        break;
+                                        for (int x = i - 1; x > from_row; x--)
+                                        {
+                                            if (p[x, column] != null)
+                                            {
+                                                possible = false;
+                                                break;
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         possible = false;
-                                        break;
                                     }
-                                    //}
                                 }
+                                else
+                                {
+                                    possible = false;
+                                }
+                                break;
+                                //}
                             }
+                            //}
                         }
                     }
                     else // moving up
                     {
-                        for (int i = from_row - 1; i >= row; i--)
+                        for (int i = row; i <= from_row - 1; i++)
                         {
-                            if (i > -1)
+                            //if (i > -1)
+                            //{
+                            if (p[i, from_column] == null)
                             {
-                                if (p[i, from_column] == null)
+                                possible = true;
+                            }
+                            else
+                            {
+                                //if (i == from_row - row)
+                                //{
+                                if (p[from_row, from_column].Color != p[i, column].Color)
                                 {
-                                    possible = true;
-                                }
-                                else
-                                {
-                                    //if (i == from_row - row)
-                                    //{
-                                    if (p[from_row, from_column].Color != p[i, column].Color)
+                                    if (i == row)
                                     {
                                         possible = true;
-                                        break;
+                                        for (int x = i + 1; x < from_row; x++)
+                                        {
+                                            if (p[x, column] != null)
+                                            {
+                                                possible = false;
+                                                break;
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         possible = false;
-                                        break;
                                     }
-                                    //}
                                 }
+                                else
+                                {
+                                    possible = false;                                   
+                                }
+                                break;
+                                //}
                             }
+                            //}
                         }
                     }
                 }
