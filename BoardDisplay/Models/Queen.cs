@@ -339,5 +339,6 @@ namespace BoardDisplay.Models
         {
             return (Color == 0) ? "Q" : "q";
         }
+        //Copy paste a success
     }
 }
