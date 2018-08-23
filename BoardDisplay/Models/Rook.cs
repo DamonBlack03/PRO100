@@ -31,20 +31,25 @@ namespace BoardDisplay.Models
                 {
                     if (from_column < column)//going  right
                     {
-                        for (int i = 0; i < column - from_column; i++)
+                        for (int i = from_column + 1; i <= column; i++)
                         {
-                            if (from_column + i < 8)
+                            if (i < 8)
                             {
-                                if (p[from_row + i, from_column] == null)
+                                if (p[from_row, i] == null)
                                 {
                                     possible = true;
                                 }
                                 else
                                 {
-                                    if (p[from_row, from_column].Color != p[row, column].Color)
+                                    if (p[from_row, from_column].Color != p[row, i].Color)
                                     {
                                         possible = true;
-                                        i = 56;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        possible = false;
+                                        break;
                                     }
                                 }
                             }
@@ -52,18 +57,26 @@ namespace BoardDisplay.Models
                     }
                     else// going left
                     {
-                        for (int i = from_column - column; i > 0; i--)
+                        for (int i = from_column - 1; i >= column; i--)
                         {
-                            if (p[from_row, from_column - i] == null)
+                            if (i > -1)
                             {
-                                possible = true;
-                            }
-                            else
-                            {
-                                if (p[from_row, from_column].Color != p[row, column].Color)
+                                if (p[from_row, i] == null)
                                 {
                                     possible = true;
-                                    i = 56;
+                                }
+                                else
+                                {
+                                    if (p[from_row, from_column].Color != p[row, i].Color)
+                                    {
+                                        possible = true;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        possible = false;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -73,45 +86,58 @@ namespace BoardDisplay.Models
                 {
                     if (from_row < row) // moving down
                     {
-                        for (int i = 0; i < row - from_row; i++)
+                        for (int i = from_row + 1; i <= row; i++)
                         {
-                            if (from_row + i < 8)
+                            if (i < 8)
                             {
-                                if (p[from_row + i, from_column] == null)
+                                if (p[i, from_column] == null)
                                 {
                                     possible = true;
                                 }
                                 else
                                 {
-                                    if (i == row - from_row)
+                                    //if (i == row - from_row)
+                                    //{
+                                    if (p[from_row, from_column].Color != p[i, column].Color)
                                     {
-                                        if (p[from_row, from_column].Color != p[row, column].Color)
-                                        {
-                                            possible = true;
-                                            i = 56;
-                                        }
+                                        possible = true;
+                                        break;
                                     }
+                                    else
+                                    {
+                                        possible = false;
+                                        break;
+                                    }
+                                    //}
                                 }
                             }
                         }
                     }
                     else // moving up
                     {
-                        for (int i = from_row - row; i > 0; i--)
+                        for (int i = from_row - 1; i >= row; i--)
                         {
-                            if (p[from_row, from_column + i] == null)
+                            if (i > -1)
                             {
-                                possible = true;
-                            }
-                            else
-                            {
-                                if (i == from_row - row)
+                                if (p[i, from_column] == null)
                                 {
-                                    if (p[from_row, from_column].Color != p[row, column].Color)
+                                    possible = true;
+                                }
+                                else
+                                {
+                                    //if (i == from_row - row)
+                                    //{
+                                    if (p[from_row, from_column].Color != p[i, column].Color)
                                     {
                                         possible = true;
-                                        i = 56;
+                                        break;
                                     }
+                                    else
+                                    {
+                                        possible = false;
+                                        break;
+                                    }
+                                    //}
                                 }
                             }
                         }
