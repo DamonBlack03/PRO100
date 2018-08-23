@@ -126,6 +126,7 @@ namespace BoardDisplay
                         {
                             //BoardDisplay[i, x].IsEnabled = false;
                             BoardDisplay[i, x].Click -= OnClick;
+                            
                         }
                     }
                 }

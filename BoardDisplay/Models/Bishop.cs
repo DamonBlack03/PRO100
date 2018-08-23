@@ -74,7 +74,7 @@ namespace BoardDisplay.Models
                                 }
                                 else
                                 {
-                                    if (/*from_row - i == row && from_column + i == column &&*/
+                                    if (from_row - i == row && from_column + i == column &&
                                         p[row, column].Color != p[from_row, from_column].Color)
                                     {
                                         possible = true;
@@ -108,7 +108,7 @@ namespace BoardDisplay.Models
                                 {
                                     //if (from_row + i < 8 && from_column - i >= 0)
                                     //{
-                                    if (/*from_row + i == row && from_column - i == column &&*/
+                                    if (from_row + i == row && from_column - i == column &&
                                     p[row, column].Color != p[from_row, from_column].Color)
                                     {
                                         possible = true;
@@ -140,7 +140,7 @@ namespace BoardDisplay.Models
                             }
                             else
                             {
-                                if (/*from_row - i == row && from_column - i == column &&*/
+                                if (from_row - i == row && from_column - i == column &&
                                     p[row, column].Color != p[from_row, from_column].Color)
                                 {
                                     possible = true;
