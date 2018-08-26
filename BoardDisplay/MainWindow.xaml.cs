@@ -223,6 +223,20 @@ namespace BoardDisplay
             //MessageBox.Show("Is it me you're looking for");
         }
 
+        private bool CheckForCheck()
+        {
+            bool check = false;
+            // go through all the pieces and see if they can move to the opposite color king.
+            return check;
+        }
+
+        private bool CheckForCheckMate()
+        {
+            bool checkMate = false;
+            // go through all the pieces and see if they can move to the opposite color king and the king cannot move.
+            return checkMate;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
