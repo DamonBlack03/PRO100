@@ -19,6 +19,7 @@ namespace BoardDisplay.Models
                 this.Color = 1;
             }
         }
+        
 
         public override bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {

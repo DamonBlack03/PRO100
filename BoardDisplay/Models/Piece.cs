@@ -18,6 +18,7 @@ namespace BoardDisplay.Models
             check = yesno;
         }
 
+
         public void Move(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
             p[row, column] = this;

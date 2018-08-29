@@ -240,6 +240,10 @@ namespace BoardDisplay
                             {
                                 MessageBox.Show("You sir are in check");
                             }
+                            else
+                            {
+                                MessageBox.Show("You sir are NOT in check");
+                            }
                         }
                     }
                 }
