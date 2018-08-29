@@ -38,6 +38,14 @@ namespace BoardDisplay
             p[0, 5] = new Bishop(false);
             p[0, 6] = new Knight(false);
             p[0, 7] = new Rook(false);
+            p[1, 0] = new Pawn(false);
+            p[1, 1] = new Pawn(false);
+            p[1, 2] = new Pawn(false);
+            p[1, 3] = new Pawn(false);
+            p[1, 4] = new Pawn(false);
+            p[1, 5] = new Pawn(false);
+            p[1, 6] = new Pawn(false);
+            p[1, 7] = new Pawn(false);
 
             p[7, 0] = new Rook(true);
             p[7, 1] = new Knight(true);
@@ -47,6 +55,14 @@ namespace BoardDisplay
             p[7, 5] = new Bishop(true);
             p[7, 6] = new Knight(true);
             p[7, 7] = new Rook(true);
+            p[6, 0] = new Pawn(true);
+            p[6, 1] = new Pawn(true);
+            p[6, 2] = new Pawn(true);
+            p[6, 3] = new Pawn(true);
+            p[6, 4] = new Pawn(true);
+            p[6, 5] = new Pawn(true);
+            p[6, 6] = new Pawn(true);
+            p[6, 7] = new Pawn(true);
         }
         public void SetupDisplay(ref Button[,] b)
         {
