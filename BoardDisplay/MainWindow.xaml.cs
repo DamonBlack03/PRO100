@@ -307,10 +307,22 @@ namespace BoardDisplay
         private void CheckForCheckMate()
         {
             bool checkMate = false;
-
+            int[] kingPosition = GetKingLocation();
             // if you get into this method, the kind is already in check. Check to see if the king can move out of check or if another piece can move in the way of the king to protect it.
 
 
+            if ((BoardArray[kingPosition[0],kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] + 1, kingPosition[1]) && !CheckForCheck()) ||
+                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0], kingPosition[1] + 1) && !CheckForCheck()) ||
+                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] + 1, kingPosition[1] + 1) && !CheckForCheck()) ||
+                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] - 1, kingPosition[1]) && !CheckForCheck()) ||
+                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0], kingPosition[1] - 1) && !CheckForCheck()) ||
+                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] - 1, kingPosition[1] - 1) && !CheckForCheck()))
+            {
+            }
+            else
+            {
+                checkMate = true;
+            }
             
             if (checkMate)
             {

@@ -52,9 +52,12 @@ namespace BoardDisplay.Models
                     {
                         if (row == 4 && (from_column == column))
                         {
-                            if (p[row, column] == null && p[row, column - 1] == null)
+                            if (column - 1 >= 0)
                             {
-                                possible = true;
+                                if (p[row, column] == null && p[row, column - 1] == null)
+                                {
+                                    possible = true;
+                                }
                             }
                         }
                     }
@@ -79,9 +82,12 @@ namespace BoardDisplay.Models
                     {
                         if (row == 3 && (from_column == column))
                         {
-                            if (p[row, column] == null && p[row, column - 1] == null)
+                            if (column - 1 >= 0)
                             {
-                                possible = true;
+                                if (p[row, column] == null && p[row, column - 1] == null)
+                                {
+                                    possible = true;
+                                }
                             }
                         }
                     }
@@ -93,7 +99,7 @@ namespace BoardDisplay.Models
 
         public override string ToString()
         {
-            return (Color == 0) ? "P": "p";
+            return (Color == 0) ? "P" : "p";
         }
     }
 }
