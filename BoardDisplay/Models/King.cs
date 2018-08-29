@@ -27,7 +27,8 @@ namespace BoardDisplay.Models
 
             if (check)
             {
-                Console.WriteLine("OHMEGURD");
+                Console.WriteLine("HALP");
+                
             }
 
             if ((from_row < 8 && from_row > -1) && (from_column < 8 && from_column > -1) &&

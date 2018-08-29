@@ -21,8 +21,8 @@ namespace BoardDisplay
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool playerSwitch = true; 
-        Button[,] BoardDisplay = new Button[8,8];
+        bool playerSwitch = true;
+        Button[,] BoardDisplay = new Button[8, 8];
         Piece[,] BoardArray = new Piece[8, 8];
         SolidColorBrush selectable = new SolidColorBrush(Color.FromArgb((byte)100, (byte)0, (byte)255, (byte)255));
         Piece moving;
@@ -98,7 +98,6 @@ namespace BoardDisplay
         }
         public void MoveSingle(ref Piece[,] p)
         {
-            
             UpdateDisplay(ref BoardDisplay);
         }
         public void CheckMove(ref Button[,] board, Button b)
@@ -106,13 +105,13 @@ namespace BoardDisplay
             //bool[,] moveable = new bool[8, 8];
             int row = 0;
             int column = 0;
-            
+
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
                 for (int x = 0; x < board.GetLength(1); x++)
                 {
-                    if(board[i,x] == b)
+                    if (board[i, x] == b)
                     {
                         board[i, x].Click -= OnClick;
                         row = i;
@@ -144,7 +143,7 @@ namespace BoardDisplay
                         {
                             //BoardDisplay[i, x].IsEnabled = false;
                             BoardDisplay[i, x].Click -= OnClick;
-                            
+
                         }
                     }
                 }
@@ -160,15 +159,15 @@ namespace BoardDisplay
             {
                 for (int x = 0; x < b.GetLength(1); x++)
                 {
-                    if(BoardArray[i,x] != null)
+                    if (BoardArray[i, x] != null)
                     {
-                        if((playerSwitch == true && BoardArray[i,x].Color == 0) ||
+                        if ((playerSwitch == true && BoardArray[i, x].Color == 0) ||
                             playerSwitch == false && BoardArray[i, x].Color == 1)
                         {
                             b[i, x].Click -= OnClick;
                             b[i, x].Click += OnClick;
                         }
-                        else 
+                        else
                         {
                             b[i, x].Click -= OnClick;
                         }
@@ -205,7 +204,7 @@ namespace BoardDisplay
             {
                 for (int x = 0; x < b.GetLength(1); x++)
                 {
-                    if(b[i,x].Background == selectable)
+                    if (b[i, x].Background == selectable)
                     {
                         selecting = false;
                     }
@@ -216,7 +215,7 @@ namespace BoardDisplay
         }
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            
+
             if (Select(BoardDisplay))
             {
 
@@ -236,13 +235,11 @@ namespace BoardDisplay
                             ResetColor(ref BoardDisplay);
                             UpdateDisplay(ref BoardDisplay);
                             MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
-                            if(CheckForCheck())
+                            if (CheckForCheck())
                             {
-                                MessageBox.Show("You sir are in check");
-                            }
-                            else
-                            {
-                                MessageBox.Show("You sir are NOT in check");
+                                MessageBox.Show((playerSwitch) ? "Player 1 is in check" : "Player 2 is check");
+                                //MessageBox.Show("You sir are in check");
+                                CheckForCheckMate();
                             }
                         }
                     }
@@ -290,13 +287,13 @@ namespace BoardDisplay
             int cond = (playerSwitch) ? 1 : 0;
             int[] temp = GetKingLocation();
             // go through all the pieces and see if they can move to the opposite color king.
-            for(int i = 0; i < BoardArray.GetLength(0); i++)
+            for (int i = 0; i < BoardArray.GetLength(0); i++)
             {
                 for (int x = 0; x < BoardArray.GetLength(0); x++)
                 {
-                    if(BoardArray[i, x] != null && BoardArray[i, x].Color == cond)
+                    if (BoardArray[i, x] != null && BoardArray[i, x].Color == cond) // checking to see if it is the opposite color
                     {
-                        if(BoardArray[i, x].CanMove(ref BoardArray, i, x, temp[0], temp[1]))
+                        if (BoardArray[i, x].CanMove(ref BoardArray, i, x, temp[0], temp[1])) // checks to see if it can move to the opposite color king
                         {
                             check = true;
                             //MessageBox.Show("You sir are in check");
@@ -307,11 +304,19 @@ namespace BoardDisplay
             return check;
         }
 
-        private bool CheckForCheckMate()
+        private void CheckForCheckMate()
         {
             bool checkMate = false;
-            // go through all the pieces and see if they can move to the opposite color king and the king cannot move.
-            return checkMate;
+
+            // if you get into this method, the kind is already in check. Check to see if the king can move out of check or if another piece can move in the way of the king to protect it.
+
+
+            
+            if (checkMate)
+            {
+                MessageBox.Show((playerSwitch) ? "Player 1 won" : "Player 2 won");
+                // end game
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -324,7 +329,7 @@ namespace BoardDisplay
             InitializeComponent();
             InitializePieces(ref BoardArray);
             SetupDisplay(ref BoardDisplay);
-            UpdateDisplay(ref BoardDisplay);           
+            UpdateDisplay(ref BoardDisplay);
         }
 
 
