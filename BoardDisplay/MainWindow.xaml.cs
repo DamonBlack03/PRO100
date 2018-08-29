@@ -38,6 +38,14 @@ namespace BoardDisplay
             p[0, 5] = new Bishop(false);
             p[0, 6] = new Knight(false);
             p[0, 7] = new Rook(false);
+            p[1, 0] = new Pawn(false);
+            p[1, 1] = new Pawn(false);
+            p[1, 2] = new Pawn(false);
+            p[1, 3] = new Pawn(false);
+            p[1, 4] = new Pawn(false);
+            p[1, 5] = new Pawn(false);
+            p[1, 6] = new Pawn(false);
+            p[1, 7] = new Pawn(false);
 
             p[7, 0] = new Rook(true);
             p[7, 1] = new Knight(true);
@@ -47,6 +55,14 @@ namespace BoardDisplay
             p[7, 5] = new Bishop(true);
             p[7, 6] = new Knight(true);
             p[7, 7] = new Rook(true);
+            p[6, 0] = new Pawn(true);
+            p[6, 1] = new Pawn(true);
+            p[6, 2] = new Pawn(true);
+            p[6, 3] = new Pawn(true);
+            p[6, 4] = new Pawn(true);
+            p[6, 5] = new Pawn(true);
+            p[6, 6] = new Pawn(true);
+            p[6, 7] = new Pawn(true);
         }
         public void SetupDisplay(ref Button[,] b)
         {
@@ -90,6 +106,7 @@ namespace BoardDisplay
             //bool[,] moveable = new bool[8, 8];
             int row = 0;
             int column = 0;
+            
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
@@ -108,6 +125,7 @@ namespace BoardDisplay
                     }
                 }
             }
+            BoardArray[row, column].KingInCheck(CheckForCheck());
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
@@ -198,8 +216,10 @@ namespace BoardDisplay
         }
         private void OnClick(object sender, RoutedEventArgs e)
         {
+            
             if (Select(BoardDisplay))
             {
+
                 CheckMove(ref BoardDisplay, (Button)sender);
             }
             else
@@ -216,9 +236,13 @@ namespace BoardDisplay
                             ResetColor(ref BoardDisplay);
                             UpdateDisplay(ref BoardDisplay);
                             MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
-                            if (CheckForCheck(i, x))
+                            if(CheckForCheck())
                             {
-                                CheckForCheckMate();
+                                MessageBox.Show("You sir are in check");
+                            }
+                            else
+                            {
+                                MessageBox.Show("You sir are NOT in check");
                             }
                         }
                     }
@@ -227,10 +251,59 @@ namespace BoardDisplay
             //MessageBox.Show("Is it me you're looking for");
         }
 
-        private bool CheckForCheck(int i, int x)
+        private int[] GetKingLocation()
+        {
+            int[] cord = new int[2];
+            int cond = (playerSwitch) ? 0 : 1;
+            for (int i = 0; i < BoardArray.GetLength(0); i++)
+            {
+                for (int x = 0; x < BoardArray.GetLength(0); x++)
+                {
+                    if (BoardArray[i, x] != null)
+                    {
+                        if (playerSwitch && BoardArray[i, x].Color == cond)
+                        {
+                            if ((string)BoardDisplay[i, x].Content == "K")
+                            {
+                                cord[0] = i;
+                                cord[1] = x;
+                            }
+                        }
+                        else if (!playerSwitch && BoardArray[i, x].Color == cond)
+                        {
+                            if ((string)BoardDisplay[i, x].Content == "k")
+                            {
+                                cord[0] = i;
+                                cord[1] = x;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cord;
+        }
+
+        private bool CheckForCheck()
         {
             bool check = false;
-            // go through all the pieces and check to see of they collide with the opposite color king.
+            int cond = (playerSwitch) ? 1 : 0;
+            int[] temp = GetKingLocation();
+            // go through all the pieces and see if they can move to the opposite color king.
+            for(int i = 0; i < BoardArray.GetLength(0); i++)
+            {
+                for (int x = 0; x < BoardArray.GetLength(0); x++)
+                {
+                    if(BoardArray[i, x] != null && BoardArray[i, x].Color == cond)
+                    {
+                        if(BoardArray[i, x].CanMove(ref BoardArray, i, x, temp[0], temp[1]))
+                        {
+                            check = true;
+                            //MessageBox.Show("You sir are in check");
+                        }
+                    }
+                }
+            }
             return check;
         }
 

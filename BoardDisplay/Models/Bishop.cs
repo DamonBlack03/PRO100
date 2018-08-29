@@ -25,6 +25,10 @@ namespace BoardDisplay.Models
             bool possible = false;
             int x = column - from_column;
             int y = row - from_row;
+            if (check)
+            {
+                Console.WriteLine("OHMEGURD");
+            }
             if (Math.Abs(x) == Math.Abs(y))
             {
                 if (x > 0)//right side

@@ -19,10 +19,17 @@ namespace BoardDisplay.Models
                 this.Color = 1;
             }
         }
+        
 
         public override bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
             bool possible = false;
+
+            if (check)
+            {
+                Console.WriteLine("OHMEGURD");
+            }
+
             if ((from_row < 8 && from_row > -1) && (from_column < 8 && from_column > -1) &&
                 (row < 8 && row > -1) && (column < 8 && column > -1))
             {

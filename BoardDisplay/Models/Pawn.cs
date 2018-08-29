@@ -24,6 +24,11 @@ namespace BoardDisplay.Models
         {
             bool possible = false;
 
+            if (check)
+            {
+                Console.WriteLine("OHMEGURD");
+            }
+
             if ((from_row < 8 && from_row > -1) && (from_column < 8 && from_column > -1) &&
                 (row < 8 && row > -1) && (column < 8 && column > -1))
             {

@@ -12,6 +12,13 @@ namespace BoardDisplay.Models
         //1-dark
         public int Color { get; set; }
 
+        public bool check = false;
+        public void KingInCheck(bool yesno)
+        {
+            check = yesno;
+        }
+
+
         public void Move(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
             p[row, column] = this;

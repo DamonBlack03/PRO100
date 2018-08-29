@@ -8,6 +8,8 @@ namespace BoardDisplay.Models
 {
     class Queen : Piece
     {
+        //bool check = false;
+
         public Queen(bool light)
         {
             if (light)
@@ -20,11 +22,20 @@ namespace BoardDisplay.Models
             }
         }
 
+        //private void KingInCheck(bool yesno)
+        //{
+        //    check = yesno;
+        //}
+
         public override bool CanMove(ref Piece[,] p, int from_row, int from_column, int row, int column)
         {
             bool possible = false;
             int x = column - from_column;
             int y = row - from_row;
+            if(check)
+            {
+                Console.WriteLine("OHMEGURD");
+            }
             if (Math.Abs(x) == Math.Abs(y))
             {
                 if (x > 0)//right side
