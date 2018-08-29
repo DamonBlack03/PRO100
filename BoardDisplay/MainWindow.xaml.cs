@@ -216,6 +216,10 @@ namespace BoardDisplay
                             ResetColor(ref BoardDisplay);
                             UpdateDisplay(ref BoardDisplay);
                             MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
+                            if (CheckForCheck(i, x))
+                            {
+                                CheckForCheckMate();
+                            }
                         }
                     }
                 }
@@ -223,10 +227,10 @@ namespace BoardDisplay
             //MessageBox.Show("Is it me you're looking for");
         }
 
-        private bool CheckForCheck()
+        private bool CheckForCheck(int i, int x)
         {
             bool check = false;
-            // go through all the pieces and see if they can move to the opposite color king.
+            // go through all the pieces and check to see of they collide with the opposite color king.
             return check;
         }
 
