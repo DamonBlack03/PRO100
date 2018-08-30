@@ -318,6 +318,7 @@ namespace BoardDisplay
                 (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0], kingPosition[1] - 1) && !CheckForCheck()) ||
                 (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] - 1, kingPosition[1] - 1) && !CheckForCheck()))
             {
+                
             }
             else
             {
