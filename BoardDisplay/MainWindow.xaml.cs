@@ -243,7 +243,7 @@ namespace BoardDisplay
                                 if (CheckForCheckMate())
                                 {
                                     MessageBox.Show("Checkmate");
-                                    //Application.Current.Shutdown();
+                                    Application.Current.Shutdown();
                                 }
                                 else
                                 {
