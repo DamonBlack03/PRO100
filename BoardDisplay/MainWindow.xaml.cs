@@ -27,6 +27,7 @@ namespace BoardDisplay
         SolidColorBrush selectable = new SolidColorBrush(Color.FromArgb((byte)100, (byte)0, (byte)255, (byte)255));
         Piece moving;
         int moving_row, moving_column;
+        public List<int[]> locate = new List<int[]>();
 
         public void InitializePieces(ref Piece[,] p)
         {
@@ -237,10 +238,19 @@ namespace BoardDisplay
                             MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
                             if (CheckForCheck())
                             {
-                                MessageBox.Show((playerSwitch) ? "Player 1 is in check" : "Player 2 is check");
+                                //MessageBox.Show((playerSwitch) ? "Player 1 is in check" : "Player 2 is check");
                                 //MessageBox.Show("You sir are in check");
-                                CheckForCheckMate();
+                                if (CheckForCheckMate())
+                                {
+                                    MessageBox.Show("Checkmate");
+                                    //Application.Current.Shutdown();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("You sir are in check");
+                                }
                             }
+
                         }
                     }
                 }
@@ -304,19 +314,32 @@ namespace BoardDisplay
             return check;
         }
 
-        private void CheckForCheckMate()
+        private bool CheckForCheckMate()
         {
-            bool checkMate = false;
-            int[] kingPosition = GetKingLocation();
+            bool checkMate = true;
+            int[] kp = GetKingLocation();
+
+            //CheckMove(ref BoardDisplay, BoardDisplay[kp[0], kp[1]]);
+            //foreach (var location in locate)
+            //{
+            //    BoardArray[kp[0], kp[1]].Move(ref BoardArray, kp[0], kp[1], location[0], location[1]);
+            //    if(CheckForCheck() == false)
+            //    {
+            //        checkMate = false;
+            //    }
+            //    BoardArray[location[0], location[1]].Move(ref BoardArray, location[0], location[1], kp[0], kp[1]);
+            //}
             // if you get into this method, the kind is already in check. Check to see if the king can move out of check or if another piece can move in the way of the king to protect it.
 
-
-            if ((BoardArray[kingPosition[0],kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] + 1, kingPosition[1]) && !CheckForCheck()) ||
-                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0], kingPosition[1] + 1) && !CheckForCheck()) ||
-                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] + 1, kingPosition[1] + 1) && !CheckForCheck()) ||
-                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] - 1, kingPosition[1]) && !CheckForCheck()) ||
-                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0], kingPosition[1] - 1) && !CheckForCheck()) ||
-                (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] - 1, kingPosition[1] - 1) && !CheckForCheck()))
+            
+            if ((BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0] + 1, kp[1]) && !CheckForCheck()) ||
+                (BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0], kp[1] + 1) && !CheckForCheck()) ||
+                (BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0] + 1, kp[1] + 1) && !CheckForCheck()) ||
+                (BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0] - 1, kp[1]) && !CheckForCheck()) ||
+                (BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0], kp[1] - 1) && !CheckForCheck()) ||
+                (BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0] - 1, kp[1] - 1) && !CheckForCheck()) ||
+                (BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0] - 1, kp[1] + 1) && !CheckForCheck()) ||
+                (BoardArray[kp[0], kp[1]].CanMove(ref BoardArray, kp[0], kp[1], kp[0] + 1, kp[1] - 1) && !CheckForCheck()))
             {
                 for (int i = 0; i < BoardArray.GetLength(0); i++)
                 {
@@ -340,13 +363,9 @@ namespace BoardDisplay
                     }
                 }
                 checkMate = true;
-            }
-            
-            if (checkMate)
-            {
-                MessageBox.Show((playerSwitch) ? "Player 1 won" : "Player 2 won");
-                // end game
-            }
+            } 
+
+            return checkMate;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
