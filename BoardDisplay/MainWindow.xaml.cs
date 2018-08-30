@@ -318,10 +318,27 @@ namespace BoardDisplay
                 (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0], kingPosition[1] - 1) && !CheckForCheck()) ||
                 (BoardArray[kingPosition[0], kingPosition[1]].CanMove(ref BoardArray, kingPosition[0], kingPosition[1], kingPosition[0] - 1, kingPosition[1] - 1) && !CheckForCheck()))
             {
-                
+                for (int i = 0; i < BoardArray.GetLength(0); i++)
+                {
+                    for (int x = 0; x < BoardArray.GetLength(1); x++)
+                    {
+                        // Check the camMove for all pieces of the matching color of the king that is in check.
+                        // Check to see if any of those can block the king from being put into check. 
+                    }
+                }
             }
             else
             {
+                for (int i = 0; i < BoardArray.GetLength(0); i++)
+                {
+                    for (int x = 0; x < BoardArray.GetLength(1); x++)
+                    {
+                        // Check the camMove for all pieces of the matching color of the king that is in check.
+                        // Check to see if any of those can block the king from being put into check mate. 
+
+                        // If nothing can block the checkMate = true; 
+                    }
+                }
                 checkMate = true;
             }
             
