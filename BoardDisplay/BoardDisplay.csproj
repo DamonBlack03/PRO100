@@ -76,6 +76,7 @@
     <Compile Include="Models\Piece.cs" />
     <Compile Include="Models\Queen.cs" />
     <Compile Include="Models\Rook.cs" />
+    <Compile Include="Pieces\Pawn.cs" />
     <Compile Include="Pieces\Piece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

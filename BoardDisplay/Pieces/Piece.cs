@@ -8,6 +8,11 @@ namespace BoardDisplay.Pieces
 {
     public abstract class Piece
     {
+        public Piece(Color color, (int, int) position)
+        {
+            this.PieceColor = color;
+            this.Position = position;
+        }
         public Color PieceColor { get; set; }
         public (int, int) Position { get; set; }
 
