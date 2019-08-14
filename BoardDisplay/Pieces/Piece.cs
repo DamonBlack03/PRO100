@@ -8,8 +8,19 @@ namespace BoardDisplay.Pieces
 {
     public abstract class Piece
     {
+        //position is row column
+        public Piece(Color color, (int, int) position)
+        {
+            this.PieceColor = color;
+            this.Position = position;
+        }
         public Color PieceColor { get; set; }
         public (int, int) Position { get; set; }
         public abstract bool CanMove((int, int) position);
+
+        public override string ToString()
+        {
+            return (PieceColor == 0) ? this.GetType().Name[0].ToString() : this.GetType().Name[0].ToString().ToLower();
+        }
     }
 }

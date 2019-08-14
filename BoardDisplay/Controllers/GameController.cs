@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoardDisplay
+namespace BoardDisplay.Controllers
 {
-    public enum Color
+    public class GameController
     {
-        BLACK = 0,
-        WHITE = 1
     }
 }
