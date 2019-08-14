@@ -12,7 +12,16 @@ namespace BoardDisplay.Pieces
 
         public override bool CanMove((int, int) position)
         {
-            throw new NotImplementedException();
+            return (
+                        (
+                            Math.Abs(position.Item1 - Position.Item1) == 1 && Math.Abs(position.Item2 - Position.Item2) == 2
+                        ) ||
+                        (
+                            Math.Abs(position.Item1 - Position.Item1) == 2 && Math.Abs(position.Item2 - Position.Item2) == 1
+                        )
+                   ) ? 
+                   true : 
+                   false;
         }
     }
 }
