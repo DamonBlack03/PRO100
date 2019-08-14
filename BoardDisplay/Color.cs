@@ -8,7 +8,7 @@ namespace BoardDisplay
 {
     public enum Color
     {
-        BLACK,
-        WHITE
+        BLACK = 0,
+        WHITE = 1
     }
 }
