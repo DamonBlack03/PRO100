@@ -10,7 +10,6 @@ namespace BoardDisplay.Pieces
     {
         public Color PieceColor { get; set; }
         public (int, int) Position { get; set; }
-
         public abstract bool CanMove((int, int) position);
     }
 }
