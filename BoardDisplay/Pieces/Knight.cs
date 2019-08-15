@@ -8,7 +8,7 @@ namespace BoardDisplay.Pieces
 {
     public class Knight : Piece
     {
-        public Knight(Color color, (int, int) position) : base(color, position) { }
+        public Knight(PieceColor color, (int, int) position) : base(color, position) { }
 
         public override bool CanMove((int, int) position)
         {

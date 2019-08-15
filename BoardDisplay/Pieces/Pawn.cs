@@ -8,7 +8,7 @@ namespace BoardDisplay.Pieces
 {
     public class Pawn : Piece
     {
-        public Pawn(Color color, (int, int) position) : base(color, position) {}
+        public Pawn(PieceColor color, (int, int) position) : base(color, position) {}
 
         public override bool CanMove((int, int) position)
         {

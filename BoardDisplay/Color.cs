@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BoardDisplay
+﻿namespace BoardDisplay
 {
-    public enum Color
+    public enum PieceColor
     {
         BLACK = 0,
         WHITE = 1

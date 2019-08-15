@@ -1,18 +1,9 @@
 ﻿using BoardDisplay.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BoardDisplay
 {
@@ -24,7 +15,7 @@ namespace BoardDisplay
         bool playerSwitch = true;
         Button[,] BoardDisplay = new Button[8, 8];
         Piece[,] BoardArray = new Piece[8, 8];
-        SolidColorBrush selectable = new SolidColorBrush(Color.FromArgb((byte)100, (byte)0, (byte)255, (byte)255));
+        SolidColorBrush selectable = new SolidColorBrush(System.Windows.Media.Color.FromArgb((byte)100, (byte)0, (byte)255, (byte)255));
         Piece moving;
         int moving_row, moving_column;
         public List<int[]> locate = new List<int[]>();

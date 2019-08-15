@@ -8,7 +8,7 @@ namespace BoardDisplay.Pieces
 {
     public class Bishop : Piece
     {
-        public Bishop(Color color, (int, int) position) : base(color, position){ }
+        public Bishop(PieceColor color, (int, int) position) : base(color, position){ }
 
         public override bool CanMove((int, int) position)
         {
