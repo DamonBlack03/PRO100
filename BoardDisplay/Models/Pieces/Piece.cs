@@ -1,27 +1,29 @@
-﻿namespace BoardDisplay.Pieces
+﻿using BoardDisplay.Models;
+
+namespace BoardDisplay.Pieces
 {
     public abstract class Piece
     {
         //position is (row, column)
         #region properties
         public PieceColor PieceColor { get; private set; }
-        public (int, int) Position { get; set; }
+        public BoardPosition Position { get; set; }
         #endregion
         #region Constructors
-        public Piece(PieceColor color, (int, int) position)
+        public Piece(PieceColor color, BoardPosition position)
         {
             PieceColor = color;
             Position = position;
         }
         #endregion
         #region Methods
-        public bool IsSameLocation((int,int) newPosition)
+        public bool IsSameLocation(BoardPosition positionToCeck)
         {
-            return Position.Item1 == newPosition.Item1 && Position.Item2 == newPosition.Item2;
+            return Position.Row == positionToCeck.Row && Position.Column == positionToCeck.Column;
         }
         #endregion
         #region Abstract Methods
-        public abstract bool CanMove((int, int) position);
+        public abstract bool CanMove(BoardPosition newBoardPosition);
         #endregion
         public override string ToString()
         {

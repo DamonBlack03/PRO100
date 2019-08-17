@@ -1,4 +1,4 @@
-﻿using BoardDisplay.Models;
+﻿using BoardDisplay.Pieces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -19,7 +19,6 @@ namespace BoardDisplay
         Piece moving;
         int moving_row, moving_column;
         public List<int[]> locate = new List<int[]>();
-
         public void InitializePieces(ref Piece[,] p)
         {
             p[0, 0] = new Rook(false);
@@ -248,7 +247,6 @@ namespace BoardDisplay
             }
             //MessageBox.Show("Is it me you're looking for");
         }
-
         private int[] GetKingLocation()
         {
             int[] cord = new int[2];
@@ -281,7 +279,6 @@ namespace BoardDisplay
 
             return cord;
         }
-
         private bool CheckForCheck()
         {
             bool check = false;
@@ -304,7 +301,6 @@ namespace BoardDisplay
             }
             return check;
         }
-
         private bool CheckForCheckMate()
         {
             bool checkMate = true;
@@ -358,12 +354,10 @@ namespace BoardDisplay
 
             return checkMate;
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MessageBox.Show((playerSwitch) ? "Player 1's turn" : "Player 2's turn");
         }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -371,7 +365,5 @@ namespace BoardDisplay
             SetupDisplay(ref BoardDisplay);
             UpdateDisplay(ref BoardDisplay);
         }
-
-
     }
 }
