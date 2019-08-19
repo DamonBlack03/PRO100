@@ -6,6 +6,8 @@ namespace BoardDisplay.Controllers
 {
     public class MainController
     {
+        //Should Move Most of this logic into the Game Controller. Game controller should handle movement and checking whereas this controller should handle
+        //updating the GUI with correct information.
         #region Properties
         private Piece[,] GameBoard { get; set; }
         private GameController RuleChecker { get; set; }

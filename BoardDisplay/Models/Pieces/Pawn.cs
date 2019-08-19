@@ -3,7 +3,7 @@ namespace BoardDisplay.Pieces
 {
     public class Pawn : Piece
     {
-        public bool HasMadeFirstMove { get; set; }
+        public bool HasMadeFirstMove { get; set; } = true;
         public Pawn(PieceColor color, BoardPosition position) : base(color, position) {}
 
         public override bool CanMove(BoardPosition newPosition)
@@ -23,15 +23,18 @@ namespace BoardDisplay.Pieces
             //}
 
             return (
-                        (newPosition.Row == Position.Row + 2 && !HasMadeFirstMove) ||
-                        (
-                            (newPosition.Row == Position.Row + 1) && 
-                            (newPosition.Column == Position.Column || newPosition.Column == Position.Column + 1 || newPosition.Column == Position.Column - 1)
-                        )
-                    ) ? 
-                    true : 
-                    false;
+                        (newPosition.Row == Position.Row + 2 && !HasMadeFirstMove && newPosition.Column == Position.Column) ||
+                        (newPosition.Row == Position.Row + 1 && newPosition.Column == Position.Column)
+                   ) ? 
+                   true : 
+                   false;
             //ternary for fun cause why not
+        }
+
+        public bool CanAttack(BoardPosition newPosition)
+        {
+            return (newPosition.Row == Position.Row + 1) &&
+                   (newPosition.Column == Position.Column + 1 || newPosition.Column == Position.Column - 1);
         }
 
     }
