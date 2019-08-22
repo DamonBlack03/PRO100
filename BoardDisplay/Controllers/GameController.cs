@@ -44,6 +44,5 @@ namespace BoardDisplay.Controllers
             Board[7, 6] = new Knight(PieceColor.WHITE, new BoardPosition(7, 6));
             Board[7, 7] = new Rook(PieceColor.WHITE, new BoardPosition(7, 7));
         }
-
     }
 }
