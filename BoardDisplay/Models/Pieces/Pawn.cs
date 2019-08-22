@@ -8,19 +8,26 @@ namespace BoardDisplay.Pieces
 
         public override bool CanMove(BoardPosition newPosition)
         {
-            return (
-                        (this.PieceColor == PieceColor.WHITE &&
-                            (newPosition.Row == Position.Row - 2 && !HasMadeFirstMove && newPosition.Column == Position.Column) ||
-                            (newPosition.Row == Position.Row - 1 && newPosition.Column == Position.Column)
-                        ) ||
-                        (this.PieceColor == PieceColor.BLACK &&
-                            (newPosition.Row == Position.Row + 2 && !HasMadeFirstMove && newPosition.Column == Position.Column) ||
-                            (newPosition.Row == Position.Row + 1 && newPosition.Column == Position.Column)
-                        )
-                   ) ? 
-                   true : 
-                   false;
-            //ternary for fun cause why not
+            if (IsSameLocation(newPosition))
+            {
+                return false;
+            }
+
+            if (newPosition.Column != Position.Column)
+            {
+                return false;
+            }
+
+            if (PieceColor == PieceColor.WHITE)
+            {
+                return newPosition.Row == Position.Row - 1 || (HasMadeFirstMove && newPosition.Row == Position.Row - 2);
+            }else if (PieceColor == PieceColor.BLACK)
+            {
+                return newPosition.Row == Position.Row + 1 || (HasMadeFirstMove && newPosition.Row == Position.Row + 2);
+            }
+
+            return false;
+
         }
 
         public bool CanAttack(BoardPosition newPosition)

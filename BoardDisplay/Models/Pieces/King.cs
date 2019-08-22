@@ -14,7 +14,10 @@ namespace BoardDisplay.Pieces
             {
                 return false;
             }
-            return (Math.Abs(Position.Row - newPosition.Row) == 1 && Math.Abs(Position.Column - newPosition.Column) == 0) || (Math.Abs(Position.Column - newPosition.Column) == 1 && Math.Abs(Position.Row - newPosition.Row) == 0);
+            return
+                (Math.Abs(Position.Row - newPosition.Row) == 1 && Math.Abs(Position.Column - newPosition.Column) == 0) ||
+                (Math.Abs(Position.Column - newPosition.Column) == 1 && Math.Abs(Position.Row - newPosition.Row) == 0) ||
+                (Math.Abs(Position.Column - newPosition.Column) == 1 && Math.Abs(Position.Row - newPosition.Row) == 1);
         }
     }
 }

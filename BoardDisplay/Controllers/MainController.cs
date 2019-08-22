@@ -1,6 +1,6 @@
 ﻿using BoardDisplay.Models;
 using BoardDisplay.Pieces;
-using System.Linq;
+using System.Windows.Controls;
 
 namespace BoardDisplay.Controllers
 {
@@ -8,32 +8,32 @@ namespace BoardDisplay.Controllers
     {
         //Should Move Most of this logic into the Game Controller. Game controller should handle movement and checking whereas this controller should handle
         //updating the GUI with correct information.
-        #region Properties
-        private Piece[,] GameBoard { get; set; }
-        private GameController RuleChecker { get; set; }
-        #endregion
         #region PieceMovement
         /// <summary>
         /// Move a Selected Piece
         /// </summary>
-        /// <param name="p">The piece to be moved</param>
-        /// <param name="newRow">The new Row the piece will move</param>
-        /// <param name="newColumn">The new Column that the piece will move </param>
+        /// <param name="newPosition">The new Row and Column the piece will move</param>
+        /// <param name="gameBoard">The 2d array with all the pieces</param>
         /// <returns>Returns wether or not the piece successfully moved to the new location</returns>
-        public bool MoveSelectedPiece(Piece p, BoardPosition newPosition)
+        public bool MoveSelectedPiece(BoardPosition oldPosition, BoardPosition newPosition, Piece[,] gameBoard)
         {
-            if (p.CanMove(newPosition))
+
+            var piece = gameBoard[oldPosition.Row, oldPosition.Column];
+
+            if (piece.CanMove(newPosition))
             {
-                if (IsPiecePresentAt(newPosition))
+                if (IsPiecePresentAt(newPosition, gameBoard))
                 {
-                    if (CanCapturePiece(p,newPosition))
+                    if (CanCapturePiece(piece,newPosition, gameBoard))
                     {
-                        TakePiece(newPosition);
+                        TakePiece(newPosition, gameBoard);
+                        Move(piece, newPosition, gameBoard);
                         return true;
                     }
                 }
                 else
                 {
+                    Move(piece, newPosition, gameBoard);
                     return true;
                 }
             }
@@ -45,9 +45,9 @@ namespace BoardDisplay.Controllers
         /// </summary>
         /// <param name="newPosition">The position (row, column) to check</param>
         /// <returns></returns>
-        private bool IsPiecePresentAt(BoardPosition newPosition)
+        private bool IsPiecePresentAt(BoardPosition newPosition, Piece[,] gameBoard)
         {
-            return GameBoard[newPosition.Row, newPosition.Column] != null;
+            return gameBoard[newPosition.Row, newPosition.Column] != null;
         }
         /// <summary>
         /// Returns wether if the new position is an enemy and can legally capture that piece
@@ -55,9 +55,9 @@ namespace BoardDisplay.Controllers
         /// <param name="p"></param>
         /// <param name="positionToCheck"></param>
         /// <returns></returns>
-        private bool CanCapturePiece(Piece p, BoardPosition positionToCheck)
+        private bool CanCapturePiece(Piece p, BoardPosition positionToCheck, Piece[,] gameBoard)
         {
-            throw new System.NotImplementedException();
+            return !IsLocationAFriendly(p, positionToCheck, gameBoard);
         }
         /// <summary>
         /// Checks to see if a piece at a given location is the same color
@@ -65,18 +65,25 @@ namespace BoardDisplay.Controllers
         /// <param name="p"></param>
         /// <param name="positionToCheck"></param>
         /// <returns></returns>
-        private bool IsLocationAFriendly(Piece p, BoardPosition positionToCheck)
+        private bool IsLocationAFriendly(Piece p, BoardPosition positionToCheck, Piece[,] gameBoard)
         {
-            return GameBoard[positionToCheck.Row, positionToCheck.Column].PieceColor == p.PieceColor;
+            return gameBoard[positionToCheck.Row, positionToCheck.Column].PieceColor == p.PieceColor;
 
         }
         /// <summary>
         /// Removes a piece on the board given a position on the board
         /// </summary>
-        /// <param name="p">The position of the piece to remove</param>
-        public void TakePiece(BoardPosition p)
+        /// <param name="position">The position of the piece to remove</param>
+        private void TakePiece(BoardPosition position,Piece[,] gameBoard)
         {
+            gameBoard[position.Row, position.Column] = null;
+        }
 
+        private void Move(Piece p, BoardPosition newPosition, Piece[,] gameBoard)
+        {
+            gameBoard[p.Position.Row, p.Position.Column] = null;
+            p.Position = newPosition;
+            gameBoard[newPosition.Row, newPosition.Column] = p;
         }
         #endregion
         #region UpdateGui

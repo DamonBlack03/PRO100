@@ -3,8 +3,7 @@ using BoardDisplay.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
-
+using BoardDisplay.Controllers;
 namespace BoardDisplay
 {
     /// <summary>
@@ -13,9 +12,20 @@ namespace BoardDisplay
     public partial class MainWindow : Window
     {
         #region Properties
+        #region Board Colors
+        readonly SolidColorBrush TilePattern1Color = new SolidColorBrush(Colors.Green);
+        readonly SolidColorBrush TilePattern2Color = new SolidColorBrush(Colors.SandyBrown);
+        readonly SolidColorBrush PatternBorderColor = new SolidColorBrush(Colors.Red);
+        readonly SolidColorBrush MoveSquareColor = new SolidColorBrush(Colors.Pink);
+        readonly SolidColorBrush MoveSquareBorderColor = new SolidColorBrush(Colors.Black);
+        new readonly Thickness BorderThickness = new Thickness(2);
+        readonly Thickness MoveSquareBorderThickness = new Thickness(2);
+        #endregion
+        readonly MainController controller = new MainController();
         readonly int MaxRows = 8;
         readonly int MaxColumns = 8;
         PieceColor CurrentPieceColorTurn = PieceColor.WHITE;
+        BoardPosition PositionTryingToMove = null;
         bool IsTryingToMove;
         Piece[,] PieceArray;
         #endregion
@@ -103,6 +113,7 @@ namespace BoardDisplay
         }
         private void FilleBoardWithPieces()
         {
+            PieceBoard.Children.Clear();
             for (int row = 0; row < MaxRows; row++)
             {
                 for (int column = 0; column < MaxColumns; column++)
@@ -139,11 +150,11 @@ namespace BoardDisplay
                 {
                     Border b = new Border()
                     {
-                        Background = (row + column) % 2 == 0 ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Blue),
+                        Background = (row + column) % 2 == 0 ? TilePattern1Color : TilePattern2Color,
                         Width = DisplayBoard.Width / DisplayBoard.ColumnDefinitions.Count,
                         Height = DisplayBoard.Height / DisplayBoard.RowDefinitions.Count,
-                        BorderThickness = new Thickness(2),
-                        BorderBrush = new SolidColorBrush(Colors.Orange)
+                        BorderThickness = BorderThickness,
+                        BorderBrush = PatternBorderColor
                     };
 
                     Grid.SetRow(b, row);
@@ -152,7 +163,6 @@ namespace BoardDisplay
                 }
             }
         }
-
         #endregion
         #region Events
         private void PieceClick(object sender, RoutedEventArgs e)
@@ -163,11 +173,13 @@ namespace BoardDisplay
                 if (IsTryingToMove && piece.PieceColor == CurrentPieceColorTurn)
                 {
                     ResetMoveBoard();
+                    PositionTryingToMove = null;
                     IsTryingToMove = false;
                 }
                 else if(piece.PieceColor == CurrentPieceColorTurn)
                 {
                     DrawMoveSets(piece);
+                    PositionTryingToMove = GetPositionOfElement(sender as Label);
                     IsTryingToMove = true;
                 }
             }
@@ -176,15 +188,19 @@ namespace BoardDisplay
         {
             if (sender is Border && IsTryingToMove)
             {
-                Models.BoardPosition b = GetPositionFromMoveSet(sender as Border);
-                MessageBox.Show($"Trying to move to\nrow=[{b.Row}]\ncolumn=[{b.Column}] ");
-                IsTryingToMove = false;
-                ResetMoveBoard();
+                BoardPosition newPosition = GetPositionOfElement(sender as Border);
+                if (controller.MoveSelectedPiece(PositionTryingToMove, newPosition, PieceArray))
+                {
+                    FilleBoardWithPieces();
+                    IsTryingToMove = false;
+                    CurrentPieceColorTurn = CurrentPieceColorTurn == PieceColor.WHITE ? PieceColor.BLACK : PieceColor.WHITE;
+                    ResetMoveBoard();
+                }
             }
         }
         #endregion
         #region Methods
-        private BoardPosition GetPositionFromMoveSet(Border b)
+        private BoardPosition GetPositionOfElement(UIElement b)
         {
             int row = Grid.GetRow(b);
             int colum = Grid.GetColumn(b);
@@ -218,11 +234,11 @@ namespace BoardDisplay
         {
             Border b = new Border()
             {
-                Background = new SolidColorBrush(Colors.Green),
+                Background = MoveSquareColor,
                 Width = DisplayBoard.Width / DisplayBoard.ColumnDefinitions.Count,
                 Height = DisplayBoard.Height / DisplayBoard.RowDefinitions.Count,
-                BorderThickness = new Thickness(2),
-                BorderBrush = new SolidColorBrush(Colors.Orange)
+                BorderThickness = MoveSquareBorderThickness,
+                BorderBrush = MoveSquareBorderColor
             };
 
             b.MouseLeftButtonDown += MoveSetClick;
@@ -231,103 +247,6 @@ namespace BoardDisplay
             Grid.SetColumn(b, column);
             MoveBoard.Children.Add(b);
         }
-        private King GetCurrentColorKing()
-        {
-            //PieceColor colorToFind = IsPlayerOneTurn ? PieceColor.WHITE : PieceColor.BLACK;
-            //for (int searchRow = 0; searchRow < BoardArray.GetLength(0); searchRow++)
-            //{
-            //    for (int searchColumn = 0; searchColumn < BoardArray.GetLength(0); searchColumn++)
-            //    {
-            //        var pieceFound = BoardArray[searchRow, searchColumn];
-            //        if (pieceFound != null && pieceFound.PieceColor == colorToFind && pieceFound is King)
-            //        {
-            //            return BoardArray[searchRow, searchColumn] as King;
-            //        }
-            //    }
-            //}
-
-
-            throw new System.Exception("Could not Find King");
-        }
-        private bool CheckForCheck()
-        {
-            bool check = false;
-            //PieceColor cond = (IsPlayerOneTurn) ? PieceColor.WHITE : PieceColor.BLACK;
-            //King king = GetCurrentColorKing();
-            //// go through all the pieces and see if they can move to the opposite color king.
-            //for (int i = 0; i < BoardArray.GetLength(0); i++)
-            //{
-            //    for (int x = 0; x < BoardArray.GetLength(0); x++)
-            //    {
-            //        // checking to see if it is the opposite color
-            //        if (BoardArray[i, x] != null && BoardArray[i, x].PieceColor == cond)
-            //        {
-            //            // checks to see if it can move to the opposite color king
-            //            if (BoardArray[i, x].CanMove(new Models.BoardPosition(king.Position.Row, king.Position.Column)))
-            //            {
-            //                check = true;
-            //            }
-            //        }
-            //    }
-            //}
-            return check;
-        }
-        private bool CheckForCheckMate()
-        {
-            bool checkMate = true;
-            //var king = GetCurrentColorKing();
-
-            ////CheckMove(ref BoardDisplay, BoardDisplay[kp[0], kp[1]]);
-            ////foreach (var location in locate)
-            ////{
-            ////    BoardArray[kp[0], kp[1]].Move(ref BoardArray, kp[0], kp[1], location[0], location[1]);
-            ////    if(CheckForCheck() == false)
-            ////    {
-            ////        checkMate = false;
-            ////    }
-            ////    BoardArray[location[0], location[1]].Move(ref BoardArray, location[0], location[1], kp[0], kp[1]);
-            ////}
-            //// if you get into this method, the kind is already in check. Check to see if the king can move out of check or if another piece can move in the way of the king to protect it.
-
-
-
-
-            //if ((king.CanMove(new Models.BoardPosition(king.Position.Row + 1, king.Position.Column)) && !CheckForCheck()) ||
-            //    (king.CanMove(new Models.BoardPosition(king.Position.Row, king.Position.Column + 1)) && !CheckForCheck()) ||
-            //    (king.CanMove(new Models.BoardPosition(king.Position.Row + 1, king.Position.Column + 1)) && !CheckForCheck()) ||
-            //    (king.CanMove(new Models.BoardPosition(king.Position.Row - 1, king.Position.Column)) && !CheckForCheck()) ||
-            //    (king.CanMove(new Models.BoardPosition(king.Position.Row, king.Position.Column - 1)) && !CheckForCheck()) ||
-            //    (king.CanMove(new Models.BoardPosition(king.Position.Row - 1, king.Position.Column - 1)) && !CheckForCheck()) ||
-            //    (king.CanMove(new Models.BoardPosition(king.Position.Row - 1, king.Position.Column + 1)) && !CheckForCheck()) ||
-            //    (king.CanMove(new Models.BoardPosition(king.Position.Row + 1, king.Position.Column - 1)) && !CheckForCheck()))
-            //{
-            //    for (int i = 0; i < BoardArray.GetLength(0); i++)
-            //    {
-            //        for (int x = 0; x < BoardArray.GetLength(1); x++)
-            //        {
-            //            // Check the camMove for all pieces of the matching color of the king that is in check.
-            //            // Check to see if any of those can block the king from being put into check. 
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    for (int i = 0; i < BoardArray.GetLength(0); i++)
-            //    {
-            //        for (int x = 0; x < BoardArray.GetLength(1); x++)
-            //        {
-            //            // Check the camMove for all pieces of the matching color of the king that is in check.
-            //            // Check to see if any of those can block the king from being put into check mate. 
-
-            //            // If nothing can block the checkMate = true; 
-            //        }
-            //    }
-            //    checkMate = true;
-            //}
-
-            return checkMate;
-        }
         #endregion
-
     }
 }

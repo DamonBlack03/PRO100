@@ -8,7 +8,7 @@ namespace BoardDisplay.Pieces
 
         public override bool CanMove(BoardPosition newPositon)
         {
-            return new Bishop(PieceColor, Position).CanMove(newPositon) || new King(PieceColor, Position).CanMove(newPositon) || new Rook(PieceColor, Position).CanMove(newPositon);
+            return new Bishop(PieceColor, Position).CanMove(newPositon) || new Rook(PieceColor, Position).CanMove(newPositon);
         }
     }
 }

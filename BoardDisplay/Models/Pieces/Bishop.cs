@@ -13,6 +13,12 @@ namespace BoardDisplay.Pieces
 
         public override bool CanMove(BoardPosition newPosition)
         {
+
+            if (IsSameLocation(newPosition))
+            {
+                return false;
+            }
+
             return (
                         Math.Abs(newPosition.Row - Position.Row) == Math.Abs(newPosition.Column - Position.Column)
                    ) ? 
