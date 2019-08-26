@@ -20,7 +20,7 @@ namespace BoardDisplay.Controllers
 
             var piece = gameBoard[oldPosition.Row, oldPosition.Column];
 
-            if (piece.CanMove(newPosition))
+            if (piece.GetMoveSet(gameBoard).Contains(newPosition))
             {
                 if (IsPiecePresentAt(newPosition, gameBoard))
                 {
@@ -78,12 +78,15 @@ namespace BoardDisplay.Controllers
         {
             gameBoard[position.Row, position.Column] = null;
         }
-
         private void Move(Piece p, BoardPosition newPosition, Piece[,] gameBoard)
         {
             gameBoard[p.Position.Row, p.Position.Column] = null;
             p.Position = newPosition;
             gameBoard[newPosition.Row, newPosition.Column] = p;
+            if (p is Pawn pawn)
+            {
+                pawn.HasMadeFirstMove = true;
+            }
         }
         #endregion
         #region UpdateGui

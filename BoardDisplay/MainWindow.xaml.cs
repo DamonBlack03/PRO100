@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BoardDisplay.Controllers;
+using System.Collections.Generic;
+
 namespace BoardDisplay
 {
     /// <summary>
@@ -13,10 +15,10 @@ namespace BoardDisplay
     {
         #region Properties
         #region Board Colors
-        readonly SolidColorBrush TilePattern1Color = new SolidColorBrush(Colors.Green);
-        readonly SolidColorBrush TilePattern2Color = new SolidColorBrush(Colors.SandyBrown);
-        readonly SolidColorBrush PatternBorderColor = new SolidColorBrush(Colors.Red);
-        readonly SolidColorBrush MoveSquareColor = new SolidColorBrush(Colors.Pink);
+        readonly SolidColorBrush TilePattern1Color = new SolidColorBrush(Colors.Purple);
+        readonly SolidColorBrush TilePattern2Color = new SolidColorBrush(Colors.Green);
+        readonly SolidColorBrush PatternBorderColor = new SolidColorBrush(Colors.Yellow);
+        readonly SolidColorBrush MoveSquareColor = new SolidColorBrush(Colors.DodgerBlue);
         readonly SolidColorBrush MoveSquareBorderColor = new SolidColorBrush(Colors.Black);
         new readonly Thickness BorderThickness = new Thickness(2);
         readonly Thickness MoveSquareBorderThickness = new Thickness(2);
@@ -36,7 +38,7 @@ namespace BoardDisplay
             CreateStandardPieces();
             CreateBoard();
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e){}
+        private void Window_Loaded(object sender, RoutedEventArgs e) { }
         #endregion
         #region Initialization Methods
         private void CreateStandardPieces()
@@ -107,6 +109,7 @@ namespace BoardDisplay
                 PieceBoard.ColumnDefinitions.Add(new ColumnDefinition());
                 MoveBoard.ColumnDefinitions.Add(new ColumnDefinition());
             }
+            DisplayBoard.MouseLeftButtonDown += PieceClick;
 
             ColorBoard();
             FilleBoardWithPieces();
@@ -119,7 +122,7 @@ namespace BoardDisplay
                 for (int column = 0; column < MaxColumns; column++)
                 {
                     Piece p;
-                    if((p = PieceArray[row,column]) != null)
+                    if ((p = PieceArray[row, column]) != null)
                     {
                         Label r = new Label()
                         {
@@ -170,18 +173,23 @@ namespace BoardDisplay
             if (sender is Label)
             {
                 var piece = GetPieceFromLabel(sender as Label);
-                if (IsTryingToMove && piece.PieceColor == CurrentPieceColorTurn)
+                var newPosition = GetPositionOfElement(sender as Label);
+
+                if (piece.PieceColor == CurrentPieceColorTurn && (PositionTryingToMove == null || !PositionTryingToMove.Equals(newPosition)))
                 {
                     ResetMoveBoard();
-                    PositionTryingToMove = null;
-                    IsTryingToMove = false;
-                }
-                else if(piece.PieceColor == CurrentPieceColorTurn)
-                {
                     DrawMoveSets(piece);
-                    PositionTryingToMove = GetPositionOfElement(sender as Label);
                     IsTryingToMove = true;
+                    PositionTryingToMove = newPosition;
                 }
+                else
+                {
+                    ResetMoveBoard();
+                }
+            }
+            else
+            {
+                ResetMoveBoard();
             }
         }
         private void MoveSetClick(object sender, RoutedEventArgs e)
@@ -209,28 +217,26 @@ namespace BoardDisplay
         }
         private void ResetMoveBoard()
         {
+            IsTryingToMove = false;
             MoveBoard.Children.Clear();
+            PositionTryingToMove = null;
+
         }
         private Piece GetPieceFromLabel(Label l)
         {
             int row = Grid.GetRow(l);
             int column = Grid.GetColumn(l);
-            return PieceArray[row,column];
+            return PieceArray[row, column];
         }
         private void DrawMoveSets(Piece p)
         {
-            for (int row = 0; row < MaxRows; row++)
+            List<BoardPosition> list = p.GetMoveSet(PieceArray);
+            foreach (var item in list)
             {
-                for (int column = 0; column < MaxColumns; column++)
-                {
-                    if (p.CanMove(new Models.BoardPosition(row,column)))
-                    {
-                        CreateMoveTile(row, column);
-                    }
-                }
+                CreateMoveTile(item.Row, item.Column);
             }
         }
-        private void CreateMoveTile(int row,int column)
+        private void CreateMoveTile(int row, int column)
         {
             Border b = new Border()
             {

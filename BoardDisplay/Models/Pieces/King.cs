@@ -1,5 +1,7 @@
 ﻿using BoardDisplay.Models;
 using System;
+using System.Collections.Generic;
+
 namespace BoardDisplay.Pieces
 {
     class King : Piece
@@ -8,16 +10,34 @@ namespace BoardDisplay.Pieces
 
         public bool IsInCheck { get; set; }
         public bool IsInCheckMate { get; set; }
-        public override bool CanMove(BoardPosition newPosition)
+        public override List<BoardPosition> GetMoveSet(Piece[,] board)
         {
-            if (IsSameLocation(newPosition))
+            List<BoardPosition> list = new List<BoardPosition>();
+
+            list.AddRange(GetPositions(board, 1, -1));
+            list.AddRange(GetPositions(board, 1, 0));
+            list.AddRange(GetPositions(board, 1, 1));
+            list.AddRange(GetPositions(board, -1, -1));
+            list.AddRange(GetPositions(board, -1, 0));
+            list.AddRange(GetPositions(board, -1, 1));
+            list.AddRange(GetPositions(board, 0, 1));
+            list.AddRange(GetPositions(board, 0, -1));
+
+            return list;
+        }
+
+        private List<BoardPosition> GetPositions(Piece[,] board, int rowDiff, int colDiff)
+        {
+            List<BoardPosition> list = new List<BoardPosition>();
+
+            int row = Position.Row + rowDiff;
+            int col = Position.Column + colDiff;
+
+            if (row >= 0 && col >= 0 && row < 8 && col < 8 && (board[row, col] == null || board[row, col].PieceColor != PieceColor))
             {
-                return false;
+                list.Add(new BoardPosition(row, col));
             }
-            return
-                (Math.Abs(Position.Row - newPosition.Row) == 1 && Math.Abs(Position.Column - newPosition.Column) == 0) ||
-                (Math.Abs(Position.Column - newPosition.Column) == 1 && Math.Abs(Position.Row - newPosition.Row) == 0) ||
-                (Math.Abs(Position.Column - newPosition.Column) == 1 && Math.Abs(Position.Row - newPosition.Row) == 1);
+            return list;
         }
     }
 }

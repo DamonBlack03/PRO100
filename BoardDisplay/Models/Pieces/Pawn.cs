@@ -1,48 +1,66 @@
 ﻿using BoardDisplay.Models;
+using System;
+using System.Collections.Generic;
+
 namespace BoardDisplay.Pieces
 {
     public class Pawn : Piece
     {
-        public bool HasMadeFirstMove { get; set; } = true;
-        public Pawn(PieceColor color, BoardPosition position) : base(color, position) {}
+        public bool HasMadeFirstMove { get; set; } = false;
+        public Pawn(PieceColor color, BoardPosition position) : base(color, position) { }
 
-        public override bool CanMove(BoardPosition newPosition)
+        public override List<BoardPosition> GetMoveSet(Piece[,] board)
         {
-            if (IsSameLocation(newPosition))
-            {
-                return false;
-            }
-
-            if (newPosition.Column != Position.Column)
-            {
-                return false;
-            }
-
+            List<BoardPosition> list = new List<BoardPosition>();
             if (PieceColor == PieceColor.WHITE)
             {
-                return newPosition.Row == Position.Row - 1 || (HasMadeFirstMove && newPosition.Row == Position.Row - 2);
-            }else if (PieceColor == PieceColor.BLACK)
+                list = GetBoardPositions(-1, board);
+            }
+            else if (PieceColor == PieceColor.BLACK)
             {
-                return newPosition.Row == Position.Row + 1 || (HasMadeFirstMove && newPosition.Row == Position.Row + 2);
+                list = GetBoardPositions(1, board);
             }
 
-            return false;
-
+            return list;
         }
-
-        public bool CanAttack(BoardPosition newPosition)
+        private List<BoardPosition> GetBoardPositions(int rowDirection, Piece[,] board)
         {
-            return (
-                        (this.PieceColor == PieceColor.WHITE &&
-                            (newPosition.Row == Position.Row - 1) &&
-                            (newPosition.Column == Position.Column + 1 || newPosition.Column == Position.Column - 1)
-                        ) ||
-                        (this.PieceColor == PieceColor.BLACK &&
-                            (newPosition.Row == Position.Row + 1) &&
-                            (newPosition.Column == Position.Column + 1 || newPosition.Column == Position.Column - 1)
-                        )
-                   );
+            List<BoardPosition> list = new List<BoardPosition>();
+            if (rowDirection < -1 || rowDirection == 0 || rowDirection > 1)
+            {
+                throw new ArgumentException();
+            }
+            try
+            {
+                if (board[Position.Row + rowDirection, Position.Column] == null)
+                {
+                    list.Add(new BoardPosition(Position.Row + rowDirection, Position.Column));
+                    int additionalSquare = rowDirection < 0 ? rowDirection - 1 : rowDirection + 1;
+                    if (!HasMadeFirstMove && board[Position.Row + additionalSquare, Position.Column] == null)
+                    {
+                        list.Add(new BoardPosition(Position.Row + additionalSquare, Position.Column));
+                    }
+                }
+            }
+            catch (IndexOutOfRangeException) { }
+            try
+            {
+                if (board[Position.Row + rowDirection, Position.Column - 1] != null && board[Position.Row + rowDirection, Position.Column - 1].PieceColor != PieceColor)
+                {
+                    list.Add(new BoardPosition(Position.Row + rowDirection, Position.Column - 1));
+                }
+            }
+            catch (IndexOutOfRangeException) { };
+            try
+            {
+                if (board[Position.Row + rowDirection, Position.Column + 1] != null && board[Position.Row + rowDirection, Position.Column + 1].PieceColor != PieceColor)
+                {
+                    list.Add(new BoardPosition(Position.Row + rowDirection, Position.Column + 1));
+                }
+            }
+            catch (IndexOutOfRangeException) { };
+            return list;
         }
-
     }
+
 }
