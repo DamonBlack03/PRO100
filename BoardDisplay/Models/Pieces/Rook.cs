@@ -1,4 +1,5 @@
 ﻿using BoardDisplay.Models;
+using System.Collections.Generic;
 
 namespace BoardDisplay.Pieces
 {
@@ -7,15 +8,44 @@ namespace BoardDisplay.Pieces
 
         public Rook(PieceColor color, BoardPosition startingPosition) : base(color, startingPosition) { }
 
-        public override bool CanMove(BoardPosition newPosition)
+        public override List<BoardPosition> GetMoveSet(Piece[,] board)
         {
+            List<BoardPosition> list = new List<BoardPosition>();
 
-            if (IsSameLocation(newPosition))
+            list.AddRange(MoveStack(board, -1, 0));
+            list.AddRange(MoveStack(board, 1, 0));
+            list.AddRange(MoveStack(board, 0, -1));
+            list.AddRange(MoveStack(board, 0, 1));
+
+            return list;
+        }
+
+        private List<BoardPosition> MoveStack(Piece[,] board, int rowDirection, int columnDirection)
+        {
+            List<BoardPosition> list = new List<BoardPosition>();
+            int currentRow = Position.Row + rowDirection;
+            int currentColumn = Position.Column + columnDirection;
+            while (currentColumn >= 0 && currentRow >= 0 && currentColumn < 8 && currentRow < 8)
             {
-                return false;
-            }
+                var locationPiece = board[currentRow, currentColumn];
+                if (locationPiece == null)
+                {
+                    list.Add(new BoardPosition(currentRow, currentColumn));
+                }
+                else if (locationPiece.PieceColor != PieceColor)
+                {
+                    list.Add(new BoardPosition(currentRow, currentColumn));
+                    return list;
+                }
+                else if(locationPiece.PieceColor == PieceColor)
+                {
+                    return list;
+                }
 
-            return Position.Row == newPosition.Row || Position.Column == newPosition.Column;
+                currentRow += rowDirection;
+                currentColumn += columnDirection;
+            }
+            return list;
         }
     }
 }

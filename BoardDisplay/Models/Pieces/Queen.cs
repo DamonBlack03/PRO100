@@ -1,4 +1,5 @@
 ﻿using BoardDisplay.Models;
+using System.Collections.Generic;
 
 namespace BoardDisplay.Pieces
 {
@@ -6,9 +7,14 @@ namespace BoardDisplay.Pieces
     {
         public Queen(PieceColor color, BoardPosition startingPosition) : base(color, startingPosition) { }
 
-        public override bool CanMove(BoardPosition newPositon)
+        public override List<BoardPosition> GetMoveSet(Piece[,] board)
         {
-            return new Bishop(PieceColor, Position).CanMove(newPositon) || new King(PieceColor, Position).CanMove(newPositon) || new Rook(PieceColor, Position).CanMove(newPositon);
+            List<BoardPosition> list = new List<BoardPosition>();
+
+            list.AddRange(new Rook(PieceColor,Position).GetMoveSet(board));
+            list.AddRange(new Bishop(PieceColor,Position).GetMoveSet(board));
+
+            return list;
         }
     }
 }

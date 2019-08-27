@@ -1,4 +1,5 @@
 ﻿using BoardDisplay.Models;
+using System.Collections.Generic;
 
 namespace BoardDisplay.Pieces
 {
@@ -27,7 +28,7 @@ namespace BoardDisplay.Pieces
         }
         #endregion
         #region Abstract Methods
-        public abstract bool CanMove(BoardPosition newBoardPosition);
+        public abstract List<BoardPosition> GetMoveSet(Piece[,] board);
         #endregion
         public override string ToString()
         {
