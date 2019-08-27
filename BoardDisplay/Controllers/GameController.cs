@@ -13,6 +13,8 @@ namespace BoardDisplay.Controllers
         //Row, Column
         public Piece[,] Board { get; set; }
 
+        private PieceColor ActivePlayer = PieceColor.BLACK;
+
         public GameController()
         {
             InitializeBoard();
@@ -45,5 +47,68 @@ namespace BoardDisplay.Controllers
             Board[7, 7] = new Rook(PieceColor.WHITE, new BoardPosition(7, 7));
         }
 
+        private bool IsInCheckmate()
+        {
+            bool isInCheckmate = true;
+
+            //retrieves all pieces to be checked
+            List<Piece> teamPieces = ActivePieces();
+
+
+            //gets all valid moves for given pieces
+            List<String> validMoves = ValidMoves(teamPieces);
+
+            //checks to see if moves would cause check
+            foreach (var move in validMoves)
+            {
+
+                if (IsSafeMove(move))
+                {
+                    isInCheckmate = false;
+                } else
+                {
+                    
+                }
+
+                if (!isInCheckmate)
+                {
+                    break;
+                }
+            }
+
+            return isInCheckmate;
+        }
+
+        private bool IsSafeMove(string move)
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<String> ValidMoves(List<Piece> teamPieces)
+        {
+            List<String> validMovements = new List<string>();
+
+            //determine what type of peice it is 
+
+            return validMovements;
+        }
+
+        private List<Piece> ActivePieces()
+        {
+            List<Piece> teamPieces = new List<Piece>();
+
+            foreach (Piece p in Board)
+            {
+                if (p != null)
+                {
+                    if (p.PieceColor.Equals(ActivePlayer) && !p.Position.Row.Equals(-1))
+                    {
+                        teamPieces.Add(p);
+                    }
+                }
+            }
+
+            return teamPieces;
+        }
     }
 }

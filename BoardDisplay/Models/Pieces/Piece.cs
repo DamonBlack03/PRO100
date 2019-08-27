@@ -21,6 +21,10 @@ namespace BoardDisplay.Pieces
         {
             return Position.Row == positionToCeck.Row && Position.Column == positionToCeck.Column;
         }
+        public bool IsEnemyOf(Piece piece)
+        {
+            return !PieceColor.Equals(piece.PieceColor);
+        }
         #endregion
         #region Abstract Methods
         public abstract bool CanMove(BoardPosition newBoardPosition);
