@@ -16,5 +16,10 @@ namespace BoardDisplay.Pieces
 
             return list;
         }
+
+        public override string ToString()
+        {
+            return (PieceColor == 0) ? "\u265b" : "\u2655";
+        }
     }
 }

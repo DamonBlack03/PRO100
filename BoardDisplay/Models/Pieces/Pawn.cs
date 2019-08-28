@@ -61,6 +61,11 @@ namespace BoardDisplay.Pieces
             catch (IndexOutOfRangeException) { };
             return list;
         }
+
+        public override string ToString()
+        {
+            return (PieceColor == 0) ? "\u265f" : "\u2659";
+        }
     }
 
 }

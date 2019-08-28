@@ -40,7 +40,7 @@ namespace BoardDisplay.Pieces
 
         public override string ToString()
         {
-            return (PieceColor == 0) ? GetType().Name[0].ToString() + "n" : GetType().Name[0].ToString().ToLower() + "n";
+            return (PieceColor == 0) ? "\u265e" : "\u2658";
         }
     }
 }

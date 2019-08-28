@@ -47,5 +47,9 @@ namespace BoardDisplay.Pieces
             }
             return list;
         }
+        public override string ToString()
+        {
+            return (PieceColor == 0) ? "\u265c" : "\u2656";
+        }
     }
 }
