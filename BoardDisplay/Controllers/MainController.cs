@@ -1,5 +1,6 @@
 ﻿using BoardDisplay.Models;
 using BoardDisplay.Pieces;
+using System;
 using System.Windows.Controls;
 
 namespace BoardDisplay.Controllers
@@ -50,7 +51,7 @@ namespace BoardDisplay.Controllers
             return gameBoard[newPosition.Row, newPosition.Column] != null;
         }
         /// <summary>
-        /// Returns wether if the new position is an enemy and can legally capture that piece
+        /// Returns wether the new position is an enemy and can legally capture that piece
         /// </summary>
         /// <param name="p"></param>
         /// <param name="positionToCheck"></param>
@@ -87,6 +88,39 @@ namespace BoardDisplay.Controllers
             {
                 pawn.HasMadeFirstMove = true;
             }
+        }
+
+        internal bool IsInCheck(PieceColor allyColor, Piece[,] replicate)
+        {
+            bool inCheck = false;
+
+            Piece king = null;
+
+            foreach (var canKing in replicate)
+            {
+                if (canKing != null && canKing is King k)
+                {
+                    if (k.PieceColor.Equals(allyColor))
+                    {
+                        king = k;
+                    }
+                }
+            }
+
+
+            foreach (var piece in replicate)
+            {
+                if (piece != null && !piece.PieceColor.Equals(allyColor))
+                {
+                    inCheck = piece.GetMoveSet(replicate).Contains(king.Position) ? true : inCheck;
+                }
+                if (inCheck)
+                {
+                    break;
+                }
+            }
+
+            return inCheck;
         }
         #endregion
         #region UpdateGui

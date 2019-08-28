@@ -24,6 +24,7 @@ namespace BoardDisplay
         readonly Thickness MoveSquareBorderThickness = new Thickness(2);
         #endregion
         readonly MainController controller = new MainController();
+        private GameController gameController = new GameController();
         readonly int MaxRows = 8;
         readonly int MaxColumns = 8;
         PieceColor CurrentPieceColorTurn = PieceColor.WHITE;
@@ -37,6 +38,7 @@ namespace BoardDisplay
             InitializeComponent();
             CreateStandardPieces();
             CreateBoard();
+            gameController.Board = PieceArray;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e) { }
         #endregion
