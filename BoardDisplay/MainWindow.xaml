@@ -40,8 +40,7 @@
         <Label Name="Seven" Grid.Column="8" Grid.Row="0" Content="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
 
         <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Name="Damon" Content="Damon"/>
-            <Label Name="Dean" Content="Dean"/>
+          
         </StackPanel>
         
         <Label Name="A" Grid.Column="0" Grid.Row="1" Content="A" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
